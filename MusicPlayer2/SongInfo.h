@@ -151,7 +151,7 @@ struct SongKey
     }
     SongKey(const SongInfo& song_info)
     {
-        ASSERT(!song_info.file_path.empty());
+        //ASSERT(!song_info.file_path.empty());
         path = song_info.file_path;
         if (song_info.is_cue)
             cue_track = song_info.track;
