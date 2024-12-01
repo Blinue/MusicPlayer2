@@ -8,7 +8,7 @@
 
 #include <string>
 #include <string_view>
-
+#include <Unknwn.h>
 #include <windows.h>
 
 #include "UniConversion.h"
@@ -18,13 +18,13 @@ namespace Scintilla {
 
 namespace HanjaDict {
 
-interface IRadical;
-interface IHanja;
-interface IStrokes;
+struct IRadical;
+struct IHanja;
+struct IStrokes;
 
 typedef enum { HANJA_UNKNOWN = 0, HANJA_K0 = 1, HANJA_K1 = 2, HANJA_OTHER = 3 } HANJA_TYPE;
 
-interface IHanjaDic : IUnknown {
+struct IHanjaDic : IUnknown {
 	STDMETHOD(OpenMainDic)();
 	STDMETHOD(CloseMainDic)();
 	STDMETHOD(GetHanjaWords)(BSTR bstrHangul, SAFEARRAY* ppsaHanja, VARIANT_BOOL* pfFound);

@@ -648,6 +648,11 @@
     <Image Include="res\黑色胶片.png" />
     <Image Include="res\黑色胶片_not_played.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\scintilla\win32\SciLexer.vcxproj">
+      <Project>{fbe04237-9c7b-4973-9c60-505975998b39}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
