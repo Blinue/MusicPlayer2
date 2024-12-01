@@ -1,5 +1,6 @@
 [requires]
 taglib/2.0
+tinyxml2/10.0.0
 
 [generators]
 MSBuildDeps

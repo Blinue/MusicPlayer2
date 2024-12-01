@@ -2,7 +2,7 @@
 #include "LastFM.h"
 #include "md5.h"
 #include "InternetCommon.h"
-#include "tinyxml2/tinyxml2.h"
+#include <tinyxml2.h>
 #include "MusicPlayer2.h"
 #include <inttypes.h>
 

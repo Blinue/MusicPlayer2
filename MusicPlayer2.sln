@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MusicPlayer2", "src\MusicPlayer2\MusicPlayer2.vcxproj", "{DFD1E633-A714-4E99-BC49-1D55ED66A6B7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{456CCAE4-2C51-4CF2-8D3A-1EFCE8C41A2D} = {456CCAE4-2C51-4CF2-8D3A-1EFCE8C41A2D}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_ConanDeps", "src\_ConanDeps\_ConanDeps.vcxproj", "{456CCAE4-2C51-4CF2-8D3A-1EFCE8C41A2D}"
 EndProject

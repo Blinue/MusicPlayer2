@@ -415,6 +415,7 @@
     <Text Include="res\Acknowledgement.txt">
       <Filter>资源文件</Filter>
     </Text>
+    <Text Include="conanfile.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -815,9 +816,6 @@
     </ClInclude>
     <ClInclude Include="UIElement.h">
       <Filter>PlayerUI</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyxml2\tinyxml2.h">
-      <Filter>公共的类\tinyxml2</Filter>
     </ClInclude>
     <ClInclude Include="TinyXml2Helper.h">
       <Filter>公共的类\tinyxml2</Filter>
@@ -1297,9 +1295,6 @@
     </ClCompile>
     <ClCompile Include="UIElement.cpp">
       <Filter>PlayerUI</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml2\tinyxml2.cpp">
-      <Filter>公共的类\tinyxml2</Filter>
     </ClCompile>
     <ClCompile Include="TinyXml2Helper.cpp">
       <Filter>公共的类\tinyxml2</Filter>
