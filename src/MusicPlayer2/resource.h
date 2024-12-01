@@ -177,7 +177,6 @@
 #define IDI_MAXIMIZE_D                  538
 #define IDI_RESTORE                     539
 #define IDI_RESTORE_D                   540
-#define IDR_COMPILE_TIME                540
 #define IDI_VOLUME3_D                   541
 #define IDI_VOLUME2_D                   542
 #define IDI_VOLUME1_D                   543
@@ -577,7 +576,6 @@
 #define IDC_SYSLINK_TAGLIB              1196
 #define IDC_SYSLINK_TINYXML2            1197
 #define IDC_SAVE_TO_SONG_FOLDER2        1197
-#define IDC_SYSLINK_SCINTILLA           1198
 #define IDC_ALBUM_COVER_PATH_EDIT       1198
 #define IDC_SYSLINK_TRAFFICMONITOR      1199
 #define IDC_SYSLINK_SIMPLENOTEPAD       1200

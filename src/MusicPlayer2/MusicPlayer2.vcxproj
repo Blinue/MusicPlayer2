@@ -37,15 +37,11 @@
       <AdditionalDependencies>..\bass\bass.lib;Powrprof.lib;Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DelayLoadDLLs>api-ms-win-core-winrt-l1-1-0.dll;api-ms-win-core-winrt-string-l1-1-0.dll;api-ms-win-shcore-stream-winrt-l1-1-0.dll;powrprof.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
-    <PreBuildEvent>
-      <Command>print_compile_time.bat</Command>
-    </PreBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="compile_time.txt" />
     <Text Include="conanfile.txt" />
     <Text Include="res\Acknowledgement.txt" />
     <Text Include="res\hzpy-utf8.txt" />
@@ -379,8 +375,7 @@
     <ClCompile Include="SetPathDlg.cpp" />
     <ClCompile Include="SoundEffectDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -454,6 +449,7 @@
       <FileType>Document</FileType>
       <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
     </CopyFileToFolders>
+    <None Include="..\..\LICENSE" />
     <None Include="res\drag.cur" />
     <None Include="res\MusicPlayer2.rc2" />
     <None Include="skins\ui1.xml" />

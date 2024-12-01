@@ -33,14 +33,8 @@ bool CAboutDlg::InitializeControls()
     temp += L" (Debug)";
 #endif
 
-    wstring time_str, hash_str;
-    CCommon::GetLastCompileTime(time_str, hash_str);
-    if (!hash_str.empty())
-        temp += L"   (" + hash_str + L")";
-
     SetDlgItemTextW(IDC_STATIC_VERSION, temp.c_str());
     temp = L"Copyright (C) 2017-" COPY_RIGHT_YEAR L" By ZhongYang\r\n";
-    temp += theApp.m_str_table.LoadTextFormat(L"TXT_ABOUTBOX_LAST_BUILD_DATE", { time_str });
     SetDlgItemTextW(IDC_STATIC_COPYRIGHT, temp.c_str());
     temp = theApp.m_str_table.LoadText(L"TXT_ABOUTBOX_THIRD_PARTY_LIB");
     SetDlgItemTextW(IDC_STATIC_THIRD_PARTY_LIB, temp.c_str());
@@ -90,7 +84,6 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CBaseDialog)
     ON_NOTIFY(NM_CLICK, IDC_SYSLINK_BASS, &CAboutDlg::OnNMClickSyslinkBass)
     ON_NOTIFY(NM_CLICK, IDC_SYSLINK_TAGLIB, &CAboutDlg::OnNMClickSyslinkTaglib)
     ON_NOTIFY(NM_CLICK, IDC_SYSLINK_TINYXML2, &CAboutDlg::OnNMClickSyslinkTinyxml2)
-    ON_NOTIFY(NM_CLICK, IDC_SYSLINK_SCINTILLA, &CAboutDlg::OnNMClickSyslinkScintilla)
     ON_NOTIFY(NM_CLICK, IDC_SYSLINK_TRAFFICMONITOR, &CAboutDlg::OnNMClickSyslinkTrafficmonitor)
     ON_NOTIFY(NM_CLICK, IDC_SYSLINK_SIMPLENOTEPAD, &CAboutDlg::OnNMClickSyslinkSimplenotepad)
     ON_NOTIFY(NM_CLICK, IDC_ACKNOWLEDGEMENT_SYSLINK, &CAboutDlg::OnNMClickAcknowledgementSyslink)
@@ -109,7 +102,6 @@ BOOL CAboutDlg::OnInitDialog()
     m_tool_tip.AddTool(GetDlgItem(IDC_SYSLINK_BASS), L"http://www.un4seen.com/bass.html");
     m_tool_tip.AddTool(GetDlgItem(IDC_SYSLINK_TAGLIB), L"http://taglib.org/");
     m_tool_tip.AddTool(GetDlgItem(IDC_SYSLINK_TINYXML2), L"https://github.com/leethomason/tinyxml2");
-    m_tool_tip.AddTool(GetDlgItem(IDC_SYSLINK_SCINTILLA), L"https://www.scintilla.org/index.html");
     m_tool_tip.AddTool(GetDlgItem(IDC_SYSLINK_TRAFFICMONITOR), (theApp.m_str_table.LoadText(L"TIP_ABOUTBOX_TRAFFICMONITOR_DESCRIPTION") + L"\r\nhttps://github.com/zhongyang219/TrafficMonitor").c_str());
     m_tool_tip.AddTool(GetDlgItem(IDC_SYSLINK_SIMPLENOTEPAD), (theApp.m_str_table.LoadText(L"TIP_ABOUTBOX_SIMPLENOTEPAD_DESCRIPTION") + L"\r\nhttps://github.com/zhongyang219/SimpleNotePad").c_str());
     m_tool_tip.SetDelayTime(300);   //设置延迟
@@ -276,14 +268,6 @@ void CAboutDlg::OnNMClickSyslinkTinyxml2(NMHDR* pNMHDR, LRESULT* pResult)
 {
     // TODO: 在此添加控件通知处理程序代码
     ShellExecute(NULL, _T("open"), _T("https://github.com/leethomason/tinyxml2"), NULL, NULL, SW_SHOW); //打开超链接
-    *pResult = 0;
-}
-
-
-void CAboutDlg::OnNMClickSyslinkScintilla(NMHDR* pNMHDR, LRESULT* pResult)
-{
-    // TODO: 在此添加控件通知处理程序代码
-    ShellExecute(NULL, _T("open"), _T("https://www.scintilla.org/index.html"), NULL, NULL, SW_SHOW);    //打开超链接
     *pResult = 0;
 }
 

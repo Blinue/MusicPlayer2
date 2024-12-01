@@ -42,7 +42,6 @@ public:
     afx_msg void OnNMClickSyslinkBass(NMHDR* pNMHDR, LRESULT* pResult);
     afx_msg void OnNMClickSyslinkTaglib(NMHDR* pNMHDR, LRESULT* pResult);
     afx_msg void OnNMClickSyslinkTinyxml2(NMHDR* pNMHDR, LRESULT* pResult);
-    afx_msg void OnNMClickSyslinkScintilla(NMHDR* pNMHDR, LRESULT* pResult);
     afx_msg void OnNMClickSyslinkTrafficmonitor(NMHDR* pNMHDR, LRESULT* pResult);
     afx_msg void OnNMClickSyslinkSimplenotepad(NMHDR* pNMHDR, LRESULT* pResult);
     afx_msg void OnNMClickAcknowledgementSyslink(NMHDR* pNMHDR, LRESULT* pResult);
