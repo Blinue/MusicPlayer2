@@ -83,11 +83,8 @@ BOOL CMusicPlayerApp::InitInstance() {
 
     LoadGlobalConfig();
 
-#ifdef _DEBUG
-    m_local_dir = L".\\";
-#else
     m_local_dir = m_module_dir;
-#endif // _DEBUG
+
     if (m_general_setting_data.portable_mode)
         m_config_dir = m_module_dir;
     else

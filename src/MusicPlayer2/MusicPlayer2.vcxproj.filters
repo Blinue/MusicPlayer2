@@ -405,9 +405,11 @@
     <Filter Include="bass">
       <UniqueIdentifier>{fd73a788-8fda-4c05-9d34-81e3a5cf3abe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="bass\Plugins">
+      <UniqueIdentifier>{aa4ca419-c501-4e26-9eb8-b37d7791b292}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
     <Text Include="compile_time.txt" />
     <Text Include="res\hzpy-utf8.txt">
       <Filter>资源文件</Filter>
@@ -1411,7 +1413,6 @@
     <None Include="res\drag.cur">
       <Filter>资源文件\Icons</Filter>
     </None>
-    <None Include="..\LICENSE" />
     <None Include="skins\ui1.xml">
       <Filter>资源文件</Filter>
     </None>
@@ -2027,6 +2028,48 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="..\bass\bass.dll">
       <Filter>bass</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bass_aac.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bass_ac3.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bass_ape.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bass_mpc.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bass_spx.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bass_tta.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bassalac.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\basscd.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bassdsd.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bassflac.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bassmidi.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bassopus.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\basswma.dll">
+      <Filter>bass\Plugins</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\basswv.dll">
+      <Filter>bass\Plugins</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

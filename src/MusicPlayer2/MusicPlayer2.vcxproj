@@ -47,7 +47,6 @@
   <ItemGroup>
     <Text Include="compile_time.txt" />
     <Text Include="conanfile.txt" />
-    <Text Include="ReadMe.txt" />
     <Text Include="res\Acknowledgement.txt" />
     <Text Include="res\hzpy-utf8.txt" />
   </ItemGroup>
@@ -391,26 +390,69 @@
     <CopyFileToFolders Include="..\bass\bass.dll">
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <None Include="..\LICENSE" />
     <CopyFileToFolders Include="language\English.ini">
       <FileType>Document</FileType>
-      <DeploymentContent>true</DeploymentContent>
-      <DestinationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RelativeDir)%(Filename)%(Extension)</DestinationFileName>
-      <DestinationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(RelativeDir)%(Filename)%(Extension)</DestinationFileName>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </DeploymentContent>
+      <DestinationFileName>%(RelativeDir)%(Filename)%(Extension)</DestinationFileName>
     </CopyFileToFolders>
     <CopyFileToFolders Include="language\Simplified_Chinese.ini">
       <FileType>Document</FileType>
-      <DeploymentContent>true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </DeploymentContent>
-      <DestinationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RelativeDir)%(Filename)%(Extension)</DestinationFileName>
-      <DestinationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(RelativeDir)%(Filename)%(Extension)</DestinationFileName>
+      <DestinationFileName>%(RelativeDir)%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bassalac.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\basscd.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bassdsd.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bassflac.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bassmidi.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bassopus.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\basswma.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\basswv.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bass_aac.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bass_ac3.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bass_ape.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bass_mpc.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bass_spx.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\Plugins\bass_tta.dll">
+      <FileType>Document</FileType>
+      <DestinationFileName>Plugins\%(Filename)%(Extension)</DestinationFileName>
     </CopyFileToFolders>
     <None Include="res\drag.cur" />
     <None Include="res\MusicPlayer2.rc2" />
