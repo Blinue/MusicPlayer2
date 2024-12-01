@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "CPlayerUIBase.h"
 #include "MusicPlayerDlg.h"
 #include "MiniModeUserUi.h"
@@ -1544,7 +1544,7 @@ int CPlayerUIBase::EdgeMargin(bool x) const
     {
         int draw_size = (x ? m_draw_rect.Width() : m_draw_rect.Height());
         int margin = draw_size * draw_size / theApp.GetDPI() / 300;
-        return max(theApp.DPI(40), margin);
+        return std::max(theApp.DPI(40), margin);
     }
     else
         return m_layout.margin;
@@ -1710,7 +1710,7 @@ double CPlayerUIBase::GetScrollTextPixel(bool slower)
 
 int CPlayerUIBase::CalculateRoundRectRadius(const CRect& rect)
 {
-    int radius{ min(rect.Width(), rect.Height()) / 6 };
+    int radius{ std::min(rect.Width(), rect.Height()) / 6 };
     if (radius < DPI(3))
         radius = DPI(3);
     if (radius > DPI(8))
@@ -1860,7 +1860,7 @@ void CPlayerUIBase::DrawControlBar(CRect rect, bool draw_switch_display_btn)
 
     //绘制播放控制按钮
     const int btn_width = DPI(36);
-    const int btn_height = min(rect.Height(), btn_width);
+    const int btn_height = std::min(rect.Height(), btn_width);
 
     CRect rc_btn{ CPoint(rect.left, rect.top + (rect.Height() - btn_height) / 2), CSize(btn_width, btn_height) };
     DrawUIButton(rc_btn, BTN_STOP, true);
@@ -1952,7 +1952,7 @@ void CPlayerUIBase::DrawProgressBar(CRect rect, bool play_time_both_side)
 void CPlayerUIBase::DrawProgess(CRect rect)
 {
     //进度条的高度
-    int progress_height = min(DPI(4), rect.Height());
+    int progress_height = std::min(DPI(4), rect.Height());
     rect.top = rect.top + (rect.Height() - progress_height) / 2;
     rect.bottom = rect.top + progress_height;
 
@@ -2452,7 +2452,7 @@ void CPlayerUIBase::DrawAlbumCover(CRect rect)
         }
         else
         {
-            int cover_side = min(rc_temp.Width(), rc_temp.Height());
+            int cover_side = std::min(rc_temp.Width(), rc_temp.Height());
             int x = rc_temp.left + (rc_temp.Width() - cover_side) / 2;
             int y = rc_temp.top + (rc_temp.Height() - cover_side) / 2;
 

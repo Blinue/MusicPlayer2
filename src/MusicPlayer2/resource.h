@@ -774,9 +774,7 @@
 #define ID_OPTION_SETTINGS              32825
 #define ID_RELOAD_PLAYLIST              32827
 #define ID_PLAY_ITEM                    32830
-#define ID_TEST                         32831
 #define ID_ITEM_PROPERTY                32833
-#define ID_TEST_DIALOG                  32834
 #define ID_REMOVE_FROM_PLAYLIST         32835
 #define ID_EXPLORE_TRACK                32840
 #define ID_RE_INI_BASS                  32843

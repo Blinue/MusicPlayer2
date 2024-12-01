@@ -235,7 +235,7 @@ BOOL CAboutDlg::OnEraseBkgnd(CDC* pDC)
 
     //绘制“确定”按钮上方的分割线
     draw_rect.top = draw_rect.bottom;
-    draw_rect.bottom = draw_rect.top + max(theApp.DPI(1), 1);
+    draw_rect.bottom = draw_rect.top + std::max(theApp.DPI(1), 1);
     pDC->FillSolidRect(draw_rect, RGB(210, 210, 210));
 
     //绘制灰色背景

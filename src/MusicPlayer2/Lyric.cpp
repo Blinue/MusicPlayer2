@@ -513,7 +513,7 @@ void CLyrics::NormalizeLyric()
     // 填充time_start，应用偏移量同时避免出现重叠，重叠的时间标签会被歌词翻译合并误处理
     for (size_t i{}; i < m_lyrics.size(); ++i)
     {
-        last = max(last, m_lyrics[i].time_start_raw + m_offset);
+        last = std::max(last, m_lyrics[i].time_start_raw + m_offset);
         m_lyrics[i].time_start = last;
         last += 10;
     }
@@ -687,7 +687,7 @@ int CLyrics::GetLyricProgress(Time time, bool ignore_blank, bool blank2mark, std
     if (now_index < 0)
     {
         lyric_current_time = time.toInt();
-        lyric_last_time = max(m_lyrics[0].time_start, 1);
+        lyric_last_time = std::max(m_lyrics[0].time_start, 1);
     }
     else if (now_index >= static_cast<int>(m_lyrics.size()))
     {
@@ -727,7 +727,7 @@ int CLyrics::GetLyricProgress(Time time, bool ignore_blank, bool blank2mark, std
         {
             if (without_mark)               // 不显示进度符号+逐字歌词 在此处填充lyric_line_size
                 lyric_line_size = measure(now_lyric.text);
-            size_t i{}, split_num{ min(now_lyric.split.size(), now_lyric.word_time.size()) };    // 避免原始歌词不标准可能导致的索引越界
+            size_t i{}, split_num{ std::min(now_lyric.split.size(), now_lyric.word_time.size()) };    // 避免原始歌词不标准可能导致的索引越界
             while (i < split_num && lyric_current_time > now_lyric.word_time[i])
                 lyric_current_time -= now_lyric.word_time[i++];
             if (i < split_num)
@@ -745,11 +745,11 @@ int CLyrics::GetLyricProgress(Time time, bool ignore_blank, bool blank2mark, std
                 return 1000;
         }
     }
-    int progress{ lyric_current_time * 1000 / max(lyric_last_time, 1) };
+    int progress{ lyric_current_time * 1000 / std::max(lyric_last_time, 1) };
     if (lyric_line_size > 0)
         progress = (progress * lyric_word_size / 1000 + lyric_before_size) * 1000 / lyric_line_size;
     // TRACE("b:%d\tw:%d\tl:%d\tp:%d\n", lyric_before_size, lyric_word_size, lyric_line_size, progress);
-    return min(progress, 1000);
+    return std::min(progress, 1000);
 }
 
 CodeType CLyrics::GetCodeType() const
@@ -810,7 +810,7 @@ wstring CLyrics::GetLyricsString2(bool lyric_and_traslation_in_same_line) const
         {
             Time a_time{ a_lyric.time_start };
             wstring line_str{ a_time.toLyricTimeTag()};
-            size_t split_num{ min(a_lyric.split.size(), a_lyric.word_time.size()) };    // 避免原始歌词不标准可能导致的索引越界
+            size_t split_num{ std::min(a_lyric.split.size(), a_lyric.word_time.size()) };    // 避免原始歌词不标准可能导致的索引越界
             if (split_num > 0)  // 以扩展lrc形式存储逐字信息，舍弃行时长time_span
             {
                 for (size_t i{}; i < split_num; ++i)
@@ -915,7 +915,7 @@ wstring CLyrics::GetLyricsString2(bool lyric_and_traslation_in_same_line) const
                 int start_time = a_lyric.time_start;
                 int end_time = start_time + a_lyric.time_span;
                 int pos_start = 0;
-                size_t split_num{ min(a_lyric.split.size(), a_lyric.word_time.size()) };    // 避免原始歌词不标准可能导致的索引越界
+                size_t split_num{ std::min(a_lyric.split.size(), a_lyric.word_time.size()) };    // 避免原始歌词不标准可能导致的索引越界
                 for (size_t i{}; i < split_num; ++i)
                 {
                     lyric_string << escapeStr(a_lyric.text.substr(pos_start, a_lyric.split[i] - pos_start));

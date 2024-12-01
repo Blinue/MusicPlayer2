@@ -2455,7 +2455,7 @@ void CPlayer::AlbumCoverResize()
         CSize image_size;
         image_size.cx = m_album_cover.GetWidth();
         image_size.cy = m_album_cover.GetHeight();
-        if (max(image_size.cx, image_size.cy) > theApp.m_nc_setting_data.max_album_cover_size)      //如果专辑封面的尺寸大于设定的最大值，则将其缩小
+        if (std::max(image_size.cx, image_size.cy) > theApp.m_nc_setting_data.max_album_cover_size)      //如果专辑封面的尺寸大于设定的最大值，则将其缩小
         {
             wstring temp_img_path{ CCommon::GetTemplatePath() + ALBUM_COVER_TEMP_NAME };
             //缩小图片大小并保存到临时目录

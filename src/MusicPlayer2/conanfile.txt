@@ -1,0 +1,7 @@
+[requires]
+taglib/2.0
+
+[generators]
+MSBuildDeps
+
+[options]

@@ -346,11 +346,6 @@ void MenuMgr::CreateMenu(MenuBase& menu)
         menu.AppendSubMenu(MainHelpMenu, IconMgr::IconType::IT_Help);
         menu.AppendSeparator();
         menu.AppendItem(EX_ID(ID_MENU_EXIT), IconMgr::IconType::IT_Exit);
-#ifdef _DEBUG
-        menu.AppendSeparator();
-        menu.AppendItem(EX_ID(ID_TEST));
-        menu.AppendItem(EX_ID(ID_TEST_DIALOG));
-#endif
         break;
     case MenuMgr::MainMenu:
         menu.CreateMenu(false, true);

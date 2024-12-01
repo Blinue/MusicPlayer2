@@ -37,7 +37,7 @@ public:
     int32_t CurrentPlayedTime();
     bool IsPushed();
     bool IsScrobbeable();
-    /// µ±Ç°¸èÇúÊÇ·ñ²¥·Åµ½ÁË¿ÉÒÔÉÏ´«µÄ½ø¶È
+    /// å½“å‰æ­Œæ›²æ˜¯å¦æ’­æ”¾åˆ°äº†å¯ä»¥ä¸Šä¼ çš„è¿›åº¦
     bool CurrentTrackScrobbleable();
     size_t CachedCount();
 protected:
@@ -50,6 +50,6 @@ private:
     LastFMDataArchive ar;
     wstring api_key;
     wstring shared_secret;
-    /// »¥³âËø£¬ÓÃÓÚ·ÀÖ¹Í¬Ê±¶à´Îµ÷ÓÃScrobble
+    /// äº’æ–¥é”ï¼Œç”¨äºé˜²æ­¢åŒæ—¶å¤šæ¬¡è°ƒç”¨Scrobble
     HANDLE mutex;
 };

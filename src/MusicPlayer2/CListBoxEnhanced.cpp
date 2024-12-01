@@ -2,6 +2,7 @@
 #include "CListBoxEnhanced.h"
 #include "MusicPlayer2.h"
 
+IMPLEMENT_DYNAMIC(CListBoxEnhanced, CListCtrlEx)
 
 CListBoxEnhanced::CListBoxEnhanced()
 	: CListCtrlEx()

@@ -379,7 +379,7 @@ bool LastFM::Scrobble(std::list<LastFMTrack>& tracks) {
         params[key] = track.track;
         wsprintf(key, L"timestamp[%i]", i);
         char tmp2[64];
-        // wsprintf 无法正确识别PRIu64
+        // wsprintf 鏃犳硶姝ｇ‘璇嗗埆PRIu64
         sprintf_s(tmp2, "%" PRIu64, track.timestamp);
         params[key] = CCommon::StrToUnicode(tmp2);
         if (!track.album.empty()) {
@@ -478,7 +478,7 @@ bool LastFM::IsScrobbeable() {
 
 bool LastFM::CurrentTrackScrobbleable() {
     auto track_duration = ar.corrected_current_track.duration.toInt();
-    int32_t least_listened = min(max(track_duration * theApp.m_media_lib_setting_data.lastfm_least_perdur / 100, theApp.m_media_lib_setting_data.lastfm_least_dur * 1000), track_duration);
+    int32_t least_listened = std::min(std::max(track_duration * theApp.m_media_lib_setting_data.lastfm_least_perdur / 100, theApp.m_media_lib_setting_data.lastfm_least_dur * 1000), track_duration);
     return ar.current_played_time > least_listened;
 }
 

@@ -1,40 +1,40 @@
-﻿#pragma once
+#pragma once
 #include "IPlayerUI.h"
 
 class CUIWindow :
-    public CStatic
+	public CStatic
 {
 public:
-    CUIWindow(IPlayerUI*& pUI)
-        : m_pUI(pUI)
-    {}
+	CUIWindow(IPlayerUI*& pUI)
+		: m_pUI(pUI)
+	{}
 
-    ~CUIWindow()
-    {}
+	~CUIWindow()
+	{}
 
 protected:
-    IPlayerUI*& m_pUI;
-    bool m_bTitlebarLButtonDown{};
-    CPoint m_ptLButtonDown{};
-    IPlayerUI* GetCurUi() const;
+	IPlayerUI*& m_pUI;
+	bool m_bTitlebarLButtonDown{};
+	CPoint m_ptLButtonDown{};
+	IPlayerUI* GetCurUi() const;
 
-    virtual void PreSubclassWindow();
-    virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual void PreSubclassWindow();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 
-    DECLARE_MESSAGE_MAP()
-    afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
-    afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-    afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
+	DECLARE_MESSAGE_MAP()
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 //    afx_msg void OnRButtonDblClk(UINT nFlags, CPoint point);
-    afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 public:
-    afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
-    afx_msg void OnPaint();
-    afx_msg void OnSize(UINT nType, int cx, int cy);
-    afx_msg void OnMouseLeave();
+	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnMouseLeave();
 protected:
-    afx_msg LRESULT OnTabletQuerysystemgesturestatus(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnTabletQuerysystemgesturestatus(WPARAM wParam, LPARAM lParam);
 public:
-    afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 };
 

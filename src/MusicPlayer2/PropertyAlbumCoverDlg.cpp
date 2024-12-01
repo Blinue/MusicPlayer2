@@ -626,7 +626,7 @@ void CPropertyAlbumCoverDlg::OnInitMenu(CMenu* pMenu)
     CImage& cover_image{ m_cover_img };
     int cover_size{};
     if (!cover_image.IsNull())
-        cover_size = max(cover_image.GetWidth(), cover_image.GetHeight());
+        cover_size = std::max(cover_image.GetWidth(), cover_image.GetHeight());
     pMenu->EnableMenuItem(ID_COMPRESS_SIZE, MF_BYCOMMAND | (!IsShowOutAlbumCover() && !m_batch_edit && cover_size > theApp.m_nc_setting_data.max_album_cover_size ? MF_ENABLED : MF_GRAYED));
 }
 
@@ -647,7 +647,7 @@ void CPropertyAlbumCoverDlg::OnCompressSize()
         CSize image_size;
         image_size.cx = album_cover.GetWidth();
         image_size.cy = album_cover.GetHeight();
-        if (max(image_size.cx, image_size.cy) > theApp.m_nc_setting_data.max_album_cover_size)      //如果专辑封面的尺寸大于设定的最大值，则将其缩小
+        if (std::max(image_size.cx, image_size.cy) > theApp.m_nc_setting_data.max_album_cover_size)      //如果专辑封面的尺寸大于设定的最大值，则将其缩小
         {
             wstring temp_img_path{ CCommon::GetTemplatePath() + ALBUM_COVER_TEMP_NAME_FOR_PROPERTIES };
             temp_img_path += L".jpg";

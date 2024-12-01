@@ -3,7 +3,7 @@
 #include "CueFile.h"
 #include "MusicPlayer2.h"
 #include "SongDataManager.h"
-#include "taglib/id3v1genres.h"
+#include <taglib/id3v1genres.h>
 #include "SongInfoHelper.h"
 #include "Lyric.h"
 #include "AudioTag.h"
@@ -497,7 +497,7 @@ void CAudioCommon::GetAudioInfo(vector<SongInfo>& files, int& update_cnt, bool& 
     process_percent = 5;
     GetCueTracks(files, update_cnt, exit_flag, refresh_mode);
     int file_too_short_ms{ theApp.m_media_lib_setting_data.file_too_short_sec * 1000 };
-    unsigned int process_cnt{}, process_all = max(files.size(), 1);  // 防止除0
+    unsigned int process_cnt{}, process_all = std::max((unsigned int)files.size(), 1u);  // 防止除0
     std::set<wstring> too_short_remove;
     for (const SongInfo& song : files)
     {

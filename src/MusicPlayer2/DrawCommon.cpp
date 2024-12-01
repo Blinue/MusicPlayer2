@@ -488,7 +488,7 @@ void CDrawCommon::DrawRectFrame(CRect rect, COLORREF color, int width, BYTE alph
 {
     if (width < 1)
         width = 1;
-    if (width > min(rect.Width(), rect.Height()) / 2)       //如果边框宽度超过矩形短边的一半，则直接填充两个矩形
+    if (width > std::min(rect.Width(), rect.Height()) / 2)       //如果边框宽度超过矩形短边的一半，则直接填充两个矩形
     {
         FillAlphaRect(rect, color, alpha, true);
     }

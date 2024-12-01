@@ -1944,7 +1944,7 @@ wstring CCommon::StrReplace(wstring& input, wstring pattern, wstring new_content
     auto len2 = new_content.length();
     while (loc != -1) {
         input.replace(loc, len, new_content);
-        if (loc + len2 < input.length()) loc = input.find(pattern, max(0, loc + len2));
+        if (loc + len2 < input.length()) loc = input.find(pattern, std::max((size_t)0, loc + len2));
         else break;
     }
     return input;

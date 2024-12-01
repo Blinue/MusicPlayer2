@@ -1,4 +1,4 @@
-﻿
+
 // MusicPlayerDlg.cpp : 实现文件
 //
 
@@ -7,13 +7,11 @@
 #include "MusicPlayerDlg.h"
 #include "SupportedFormatDlg.h"
 #include "AboutDlg.h"
-#include "CTest.h"
 #include "CListenTimeStatisticsDlg.h"
 #include "CFloatPlaylistDlg.h"
 #include "Playlist.h"
 #include "InputDlg.h"
 #include "FileRelateDlg.h"
-#include "TestDlg.h"
 #include "COSUPlayerHelper.h"
 #include "MusicPlayerCmdHelper.h"
 #include "AddToPlaylistDlg.h"
@@ -753,12 +751,12 @@ void CMusicPlayerDlg::LoadConfig()
     theApp.m_media_lib_setting_data.write_id3_v2_3 = ini.GetBool(L"media_lib", L"write_id3_v2_3", true);
     theApp.m_media_lib_setting_data.enable_lastfm = ini.GetBool(L"media_lib", L"enable_lastfm", false);
     theApp.m_media_lib_setting_data.lastfm_least_perdur = ini.GetInt(L"media_lib", L"lastfm_least_perdur", 50);
-    theApp.m_media_lib_setting_data.lastfm_least_perdur = min(90, max(10, theApp.m_media_lib_setting_data.lastfm_least_perdur));
+    theApp.m_media_lib_setting_data.lastfm_least_perdur = std::min(90, std::max(10, theApp.m_media_lib_setting_data.lastfm_least_perdur));
     theApp.m_media_lib_setting_data.lastfm_least_dur = ini.GetInt(L"media_lib", L"lastfm_least_dur", 60);
-    theApp.m_media_lib_setting_data.lastfm_least_dur = min(240, max(10, theApp.m_media_lib_setting_data.lastfm_least_dur));
+    theApp.m_media_lib_setting_data.lastfm_least_dur = std::min(240, std::max(10, theApp.m_media_lib_setting_data.lastfm_least_dur));
     theApp.m_media_lib_setting_data.lastfm_auto_scrobble = ini.GetBool(L"media_lib", L"lastfm_auto_scrobble", true);
     theApp.m_media_lib_setting_data.lastfm_auto_scrobble_min = ini.GetInt(L"media_lib", L"lastfm_auto_scrobble_min", 1);
-    theApp.m_media_lib_setting_data.lastfm_auto_scrobble_min = min(50, max(1, theApp.m_media_lib_setting_data.lastfm_auto_scrobble_min));
+    theApp.m_media_lib_setting_data.lastfm_auto_scrobble_min = std::min(50, std::max(1, theApp.m_media_lib_setting_data.lastfm_auto_scrobble_min));
     theApp.m_media_lib_setting_data.lastfm_enable_https = ini.GetBool(L"media_lib", L"lastfm_enable_https", false);
     theApp.m_media_lib_setting_data.lastfm_enable_nowplaying = ini.GetBool(L"media_lib", L"lastfm_enable_nowplaying", true);
     CTagLibHelper::SetWriteId3V2_3(theApp.m_media_lib_setting_data.write_id3_v2_3);
@@ -1078,7 +1076,7 @@ void CMusicPlayerDlg::UpdateTaskBarProgress(bool force) const
         {
             int position = CPlayer::GetInstance().GetCurrentPosition();
             int length = CPlayer::GetInstance().GetSongLength();
-            progress = max(position, 0) * total / max(length, 1);
+            progress = std::max(position, 0) * total / std::max(length, 1);
             if (progress > total) progress = total;
             if (progress < 1) progress = 1;         // 为0时显示效果为TBPF_NOPROGRESS所以直接从1开始
             if (CPlayer::GetInstance().IsError())
@@ -2138,7 +2136,7 @@ BOOL CMusicPlayerDlg::OnInitDialog()
     m_media_lib_button.SetWindowTextW(text);
     pDC->DrawTextW(text, &text_size, DT_CALCRECT);
     if (m_medialib_btn_width < text_size.Width() + theApp.DPI(40))
-        m_medialib_btn_width = min(text_size.Width() + theApp.DPI(40), theApp.DPI(150));
+        m_medialib_btn_width = std::min(text_size.Width() + theApp.DPI(40), theApp.DPI(150));
     ReleaseDC(pDC);
 
     //初始化提示信息
@@ -3369,16 +3367,8 @@ BOOL CMusicPlayerDlg::OnCommand(WPARAM wParam, LPARAM lParam)
     case IDT_NEXT:
         OnNext();
         break;
-    case ID_TEST:
-        CTest::Test();
-        //CPlayer::GetInstance().DoABRepeat();
+    default:
         break;
-    case ID_TEST_DIALOG:
-    {
-        CTestDlg dlg;
-        dlg.DoModal();
-    }
-    break;
     }
 
     //响应切换界面命令

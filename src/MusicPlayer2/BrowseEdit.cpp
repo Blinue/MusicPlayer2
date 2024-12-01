@@ -107,7 +107,7 @@ void CBrowseEdit::OnChangeLayout()
         btn_width = drawer.GetTextExtent(m_btn_str.c_str()).cx + theApp.DPI(28);
         ReleaseDC(pDC);
     }
-    m_nBrowseButtonWidth = max(btn_width, m_sizeImage.cx + 8);
+    m_nBrowseButtonWidth = std::max(btn_width, (int)m_sizeImage.cx + 8);
 
     SetWindowPos(NULL, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOSIZE | SWP_NOZORDER | SWP_NOMOVE);
 

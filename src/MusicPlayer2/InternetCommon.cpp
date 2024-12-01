@@ -373,7 +373,7 @@ double CInternetCommon::StringSimilarDegree_LD(const wstring & srcString, const 
 	}
 
 	// Step 7
-	double ds = 1 - (double)d[n][m] / max(srcString.size(), matchString.size());
+	double ds = 1 - (double)d[n][m] / std::max(srcString.size(), matchString.size());
 
 	return ds;
 }

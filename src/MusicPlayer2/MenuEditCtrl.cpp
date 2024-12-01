@@ -92,7 +92,7 @@ void CMenuEditCtrl::OnChangeLayout()
     ASSERT_VALID(this);
     ENSURE(GetSafeHwnd() != NULL);
 
-    m_nBrowseButtonWidth = max(theApp.DPI(20), m_sizeImage.cx + 8);
+    m_nBrowseButtonWidth = std::max(theApp.DPI(20), (int)m_sizeImage.cx + 8);
 
     SetWindowPos(NULL, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOSIZE | SWP_NOZORDER | SWP_NOMOVE);
 

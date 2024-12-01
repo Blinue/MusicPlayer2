@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SongInfo.h"
 #include "FormatConvertDlg.h"
 #include "RecentFolderAndPlaylist.h"

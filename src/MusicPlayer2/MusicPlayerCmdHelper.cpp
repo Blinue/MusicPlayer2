@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "MusicPlayerCmdHelper.h"
 #include "InternetCommon.h"
 #include "Player.h"

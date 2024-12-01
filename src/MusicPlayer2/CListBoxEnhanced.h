@@ -6,6 +6,7 @@
 class CListBoxEnhanced :
 	public CListCtrlEx
 {
+	DECLARE_DYNAMIC(CListBoxEnhanced)
 public:
 	CListBoxEnhanced();
 	~CListBoxEnhanced();

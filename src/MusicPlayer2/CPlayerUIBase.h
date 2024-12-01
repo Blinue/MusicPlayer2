@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "MusicPlayer2.h"
 #include "IPlayerUI.h"
 #include "CPlayerUIHelper.h"

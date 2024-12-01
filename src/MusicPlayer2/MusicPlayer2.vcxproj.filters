@@ -189,9 +189,6 @@
     <Filter Include="公共的类\crashtool">
       <UniqueIdentifier>{1e70237e-f876-475b-b0bc-39515b58536d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="测试">
-      <UniqueIdentifier>{692fd85a-6d5f-4f16-acc2-2d9f78548d64}</UniqueIdentifier>
-    </Filter>
     <Filter Include="对话框类\MessageDlg">
       <UniqueIdentifier>{460c7079-bec0-4530-814a-80130ffc6e79}</UniqueIdentifier>
     </Filter>
@@ -227,9 +224,6 @@
     </Filter>
     <Filter Include="功能逻辑类\桌面歌词">
       <UniqueIdentifier>{cec43889-05cc-4001-b005-a26a7b552a39}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="测试\TestDlg">
-      <UniqueIdentifier>{8ce0b994-4bf4-4aa6-8cae-0ca57536d438}</UniqueIdentifier>
     </Filter>
     <Filter Include="派生的控件类\PlayerToolBar">
       <UniqueIdentifier>{cefd3a16-652f-47b7-80f0-c01c9654eda2}</UniqueIdentifier>
@@ -624,9 +618,6 @@
     <ClInclude Include="crashtool.h">
       <Filter>公共的类\crashtool</Filter>
     </ClInclude>
-    <ClInclude Include="CTest.h">
-      <Filter>测试</Filter>
-    </ClInclude>
     <ClInclude Include="MessageDlg.h">
       <Filter>对话框类\MessageDlg</Filter>
     </ClInclude>
@@ -686,9 +677,6 @@
     </ClInclude>
     <ClInclude Include="ColorStaticEx.h">
       <Filter>派生的控件类\ColorStatic</Filter>
-    </ClInclude>
-    <ClInclude Include="TestDlg.h">
-      <Filter>测试\TestDlg</Filter>
     </ClInclude>
     <ClInclude Include="PlayerToolBar.h">
       <Filter>派生的控件类\PlayerToolBar</Filter>
@@ -1127,9 +1115,6 @@
     <ClCompile Include="crashtool.cpp">
       <Filter>公共的类\crashtool</Filter>
     </ClCompile>
-    <ClCompile Include="CTest.cpp">
-      <Filter>测试</Filter>
-    </ClCompile>
     <ClCompile Include="MessageDlg.cpp">
       <Filter>对话框类\MessageDlg</Filter>
     </ClCompile>
@@ -1180,9 +1165,6 @@
     </ClCompile>
     <ClCompile Include="ColorStaticEx.cpp">
       <Filter>派生的控件类\ColorStatic</Filter>
-    </ClCompile>
-    <ClCompile Include="TestDlg.cpp">
-      <Filter>测试\TestDlg</Filter>
     </ClCompile>
     <ClCompile Include="PlayerToolBar.cpp">
       <Filter>派生的控件类\PlayerToolBar</Filter>
