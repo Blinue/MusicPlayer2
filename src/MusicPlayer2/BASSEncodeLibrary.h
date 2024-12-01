@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "DllLib.h"
+#include "../bass/bass.h"
 typedef DWORD HENCODE;		// encoder handle
 
 typedef void (CALLBACK ENCODEPROC)(HENCODE handle, DWORD channel, const void *buffer, DWORD length, void *user);

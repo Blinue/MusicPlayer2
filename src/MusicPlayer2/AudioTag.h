@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "AudioCommon.h"
+#include "../bass/bass.h"
 
 class CAudioTag
 {

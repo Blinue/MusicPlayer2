@@ -1,6 +1,8 @@
 ﻿//封装的BASS MIDI中的若干API函数，通过动态加载的方式
 #pragma once
 #include "DllLib.h"
+#include "../bass/bass.h"
+
 typedef DWORD HSOUNDFONT;	// soundfont handle
 struct BASS_MIDI_FONT 
 {

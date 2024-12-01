@@ -375,10 +375,8 @@ BOOL CFormatConvertDlg::OnInitDialog()
 
     SetEncodeConfigBtnState();
 
-    //#ifndef COMPILE_IN_WIN_XP
     //	if (CWinVersionHelper::IsWindows7OrLater())
     //		CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&m_pTaskbar));	//创建ITaskbarList3的实例
-    //#endif
 
     return TRUE;  // return TRUE unless you set the focus to a control
                   // 异常: OCX 属性页应返回 FALSE

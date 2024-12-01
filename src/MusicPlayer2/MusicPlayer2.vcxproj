@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DFD1E633-A714-4E99-BC49-1D55ED66A6B7}</ProjectGuid>
@@ -27,41 +27,16 @@
     <Import Project="$(SolutionDir).conan\$(MSBuildProjectName)\conandeps.props" Condition="Exists('$(SolutionDir).conan\$(MSBuildProjectName)\conandeps.props')" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+  <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>bass.lib;Powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\bass\bass.lib;Powrprof.lib;Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DelayLoadDLLs>api-ms-win-core-winrt-l1-1-0.dll;api-ms-win-core-winrt-string-l1-1-0.dll;api-ms-win-shcore-stream-winrt-l1-1-0.dll;powrprof.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
-    <ResourceCompile>
-      <Culture>0x0409</Culture>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <PreBuildEvent>
-      <Command>print_compile_time.bat</Command>
-    </PreBuildEvent>
-    <Manifest>
-      <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
-    </Manifest>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
-    <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>bass.lib;Powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>api-ms-win-core-winrt-l1-1-0.dll;api-ms-win-core-winrt-string-l1-1-0.dll;api-ms-win-shcore-stream-winrt-l1-1-0.dll;powrprof.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-    </Link>
-    <ResourceCompile>
-      <Culture>0x0409</Culture>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
     <PreBuildEvent>
       <Command>print_compile_time.bat</Command>
     </PreBuildEvent>
@@ -76,6 +51,7 @@
     <Text Include="res\hzpy-utf8.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\bass\bass.h" />
     <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="AcceleratorRes.h" />
     <ClInclude Include="AddToPlaylistDlg.h" />
@@ -85,7 +61,6 @@
     <ClInclude Include="AudioTag.h" />
     <ClInclude Include="AudioTagOld.h" />
     <ClInclude Include="BaseDialog.h" />
-    <ClInclude Include="bass.h" />
     <ClInclude Include="BassCore.h" />
     <ClInclude Include="BASSEncodeLibrary.h" />
     <ClInclude Include="BASSMidiLibrary.h" />
@@ -143,7 +118,6 @@
     <ClInclude Include="RecentFolderAndPlaylist.h" />
     <ClInclude Include="RecentFolderMgr.h" />
     <ClInclude Include="RenameDlg.h" />
-    <ClInclude Include="ScintillaEditView.h" />
     <ClInclude Include="SelectItemDlg.h" />
     <ClInclude Include="SliderCtrlEx.h" />
     <ClInclude Include="SongDataManager.h" />
@@ -226,7 +200,6 @@
     <ClInclude Include="LyricDownloadCommon.h" />
     <ClInclude Include="LyricBatchDownloadDlg.h" />
     <ClInclude Include="LyricDownloadDlg.h" />
-    <ClInclude Include="LyricEditDlg.h" />
     <ClInclude Include="MiniModeDlg.h" />
     <ClInclude Include="MP3EncodeCfgDlg.h" />
     <ClInclude Include="MyComboBox.h" />
@@ -314,7 +287,6 @@
     <ClCompile Include="RecentFolderAndPlaylist.cpp" />
     <ClCompile Include="RecentFolderMgr.cpp" />
     <ClCompile Include="RenameDlg.cpp" />
-    <ClCompile Include="ScintillaEditView.cpp" />
     <ClCompile Include="SelectItemDlg.cpp" />
     <ClCompile Include="SliderCtrlEx.cpp" />
     <ClCompile Include="SongDataManager.cpp" />
@@ -396,7 +368,6 @@
     <ClCompile Include="LyricDownloadCommon.cpp" />
     <ClCompile Include="LyricBatchDownloadDlg.cpp" />
     <ClCompile Include="LyricDownloadDlg.cpp" />
-    <ClCompile Include="LyricEditDlg.cpp" />
     <ClCompile Include="MiniModeDlg.cpp" />
     <ClCompile Include="MP3EncodeCfgDlg.cpp" />
     <ClCompile Include="MyComboBox.cpp" />
@@ -421,6 +392,9 @@
     <ResourceCompile Include="MusicPlayer2.rc" />
   </ItemGroup>
   <ItemGroup>
+    <CopyFileToFolders Include="..\bass\bass.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
     <None Include="..\LICENSE" />
     <CopyFileToFolders Include="language\English.ini">
       <FileType>Document</FileType>
@@ -647,11 +621,6 @@
     <Image Include="res\顺序播放_d.ico" />
     <Image Include="res\黑色胶片.png" />
     <Image Include="res\黑色胶片_not_played.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scintilla\win32\SciLexer.vcxproj">
-      <Project>{fbe04237-9c7b-4973-9c60-505975998b39}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

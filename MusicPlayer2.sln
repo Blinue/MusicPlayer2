@@ -5,8 +5,6 @@ VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MusicPlayer2", "src\MusicPlayer2\MusicPlayer2.vcxproj", "{DFD1E633-A714-4E99-BC49-1D55ED66A6B7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SciLexer", "src\scintilla\win32\SciLexer.vcxproj", "{FBE04237-9C7B-4973-9C60-505975998B39}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_ConanDeps", "src\_ConanDeps\_ConanDeps.vcxproj", "{456CCAE4-2C51-4CF2-8D3A-1EFCE8C41A2D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A0259B5C-9B86-4A88-93F7-76FB543700CC}"
@@ -27,10 +25,6 @@ Global
 		{DFD1E633-A714-4E99-BC49-1D55ED66A6B7}.Debug|x64.Build.0 = Debug|x64
 		{DFD1E633-A714-4E99-BC49-1D55ED66A6B7}.Release|x64.ActiveCfg = Release|x64
 		{DFD1E633-A714-4E99-BC49-1D55ED66A6B7}.Release|x64.Build.0 = Release|x64
-		{FBE04237-9C7B-4973-9C60-505975998B39}.Debug|x64.ActiveCfg = Debug|x64
-		{FBE04237-9C7B-4973-9C60-505975998B39}.Debug|x64.Build.0 = Debug|x64
-		{FBE04237-9C7B-4973-9C60-505975998B39}.Release|x64.ActiveCfg = Release|x64
-		{FBE04237-9C7B-4973-9C60-505975998B39}.Release|x64.Build.0 = Release|x64
 		{456CCAE4-2C51-4CF2-8D3A-1EFCE8C41A2D}.Debug|x64.ActiveCfg = Debug|x64
 		{456CCAE4-2C51-4CF2-8D3A-1EFCE8C41A2D}.Debug|x64.Build.0 = Debug|x64
 		{456CCAE4-2C51-4CF2-8D3A-1EFCE8C41A2D}.Release|x64.ActiveCfg = Release|x64

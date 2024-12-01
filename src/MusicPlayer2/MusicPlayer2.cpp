@@ -62,8 +62,7 @@ CMusicPlayerApp theApp;
 
 // CMusicPlayerApp 初始化
 
-BOOL CMusicPlayerApp::InitInstance()
-{
+BOOL CMusicPlayerApp::InitInstance() {
     //替换掉对话框程序的默认类名
     WNDCLASS wc;
     ::GetClassInfo(AfxGetInstanceHandle(), _T("#32770"), &wc);	//MFC默认的所有对话框的类名为#32770
@@ -74,8 +73,7 @@ BOOL CMusicPlayerApp::InitInstance()
     wchar_t path[MAX_PATH];
     GetModuleFileNameW(NULL, path, MAX_PATH);
     m_module_path_reg = path;
-    if (m_module_path_reg.find(L' ') != std::wstring::npos)
-    {
+    if (m_module_path_reg.find(L' ') != std::wstring::npos) {
         //如果路径中有空格，则在程序路径前后添加双引号
         m_module_path_reg = L'\"' + m_module_path_reg;
         m_module_path_reg += L'\"';
@@ -110,8 +108,7 @@ BOOL CMusicPlayerApp::InitInstance()
 
     wstring cmd_line{ m_lpCmdLine };
     //当程序被Windows重新启动时，直接退出程序
-    if (cmd_line.find(L"RestartByRestartManager") != wstring::npos)
-    {
+    if (cmd_line.find(L"RestartByRestartManager") != wstring::npos) {
         LoadConfig();   // m_str_table.Init之前需要先加载语言配置
         // Init略花时间，不应当在互斥量成功创建之前执行，这里是特例
         m_str_table.Init(m_local_dir + L"language\\", m_general_setting_data.language_);
@@ -134,15 +131,13 @@ BOOL CMusicPlayerApp::InitInstance()
 #endif 
     //检查是否已有实例正在运行
     HANDLE hMutex = ::CreateMutex(NULL, TRUE, str_mutex);		//使用一个随机的字符串创建一个互斥量
-    if (hMutex != NULL)
-    {
+    if (hMutex != NULL) {
         if (GetLastError() == ERROR_ALREADY_EXISTS)		//互斥量创建失败，说明已经有一个程序的实例正在运行
         {
             //AfxMessageBox(_T("已经有一个程序正在运行。"));
             bool add_files{ false };
             HWND handle = FindWindow(_T("MusicPlayer_l3gwYT"), NULL);		//根据类名查找已运行实例窗口的句柄
-            if (handle == NULL)
-            {
+            if (handle == NULL) {
                 //如果没有找到窗口句柄，则可能程序窗口还未创建，先延时一段时间再查找。
                 //这种情况只可能是在同时打开多个音频文件时启动了多个进程，这些进程几乎是同时启动的，
                 //此时虽然检测到已有另一个程序实例在运行，但是窗口还未创建，
@@ -151,26 +146,22 @@ BOOL CMusicPlayerApp::InitInstance()
                 handle = FindWindow(_T("MusicPlayer_l3gwYT"), NULL);
                 add_files = true;
             }
-            if (handle != NULL)
-            {
+            if (handle != NULL) {
                 HWND minidlg_handle = FindWindow(_T("MiniDlg_ByH87M"), NULL);
-                if (!cmd_control || m_cmd == ControlCmd::MINI_MODE)
-                {
+                if (!cmd_control || m_cmd == ControlCmd::MINI_MODE) {
                     if (minidlg_handle == NULL)			//没有找到“迷你模式”窗口，则激活主窗口
                     {
                         ShowWindow(handle, SW_SHOWNORMAL);		//激活并显示窗口
                         SetForegroundWindow(handle);		//将窗口设置为焦点
                         ::SendMessage(handle, WM_MAIN_WINDOW_ACTIVATED, 0, 0);
-                    }
-                    else				//找到了“迷你模式”窗口，则激活“迷你模式”窗口
+                    } else				//找到了“迷你模式”窗口，则激活“迷你模式”窗口
                     {
                         ShowWindow(minidlg_handle, SW_SHOWNORMAL);
                         SetForegroundWindow(minidlg_handle);
                     }
                 }
 
-                if (cmd_control)
-                {
+                if (cmd_control) {
                     if (m_cmd & ControlCmd::PLAY_PAUSE)
                         ::SendMessage(handle, WM_COMMAND, ID_PLAY_PAUSE, 0);
                     if (m_cmd & ControlCmd::_PREVIOUS)
@@ -200,8 +191,7 @@ BOOL CMusicPlayerApp::InitInstance()
                     copy_data.lpData = (const PVOID)cmd_line.c_str();
                     ::SendMessage(handle, WM_COPYDATA, 0, (LPARAM)&copy_data);
                 }
-            }
-            else        //仍然找不到窗口句柄，说明程序还没有退出
+            } else        //仍然找不到窗口句柄，说明程序还没有退出
             {
                 LoadConfig();
                 m_str_table.Init(m_local_dir + L"language\\", m_general_setting_data.language_);
@@ -228,8 +218,7 @@ BOOL CMusicPlayerApp::InitInstance()
     //检查bass.dll的版本是否和API的版本匹配
     WORD dll_version{ HIWORD(BASS_GetVersion()) };
     //WORD dll_version{ 0x203 };
-    if (dll_version != BASSVERSION)
-    {
+    if (dll_version != BASSVERSION) {
         wstring dll_version_str{ std::to_wstring(static_cast<int>(HIBYTE(dll_version))) + L'.' + std::to_wstring(static_cast<int>(LOBYTE(dll_version))) };
         wstring bass_version_str{ std::to_wstring(static_cast<int>(HIBYTE(BASSVERSION))) + L'.' + std::to_wstring(static_cast<int>(LOBYTE(BASSVERSION))) };
         wstring info = theApp.m_str_table.LoadTextFormat(L"MSG_BASS_VERSION_WARNING", { dll_version_str, bass_version_str });
@@ -239,8 +228,7 @@ BOOL CMusicPlayerApp::InitInstance()
 
     //启动时检查更新
 #ifndef _DEBUG		//DEBUG下不在启动时检查更新
-    if (m_general_setting_data.check_update_when_start)
-    {
+    if (m_general_setting_data.check_update_when_start) {
         AfxBeginThread(CheckUpdateThreadFunc, NULL);
     }
 #endif // !_DEBUG
@@ -290,7 +278,6 @@ BOOL CMusicPlayerApp::InitInstance()
     Gdiplus::GdiplusStartupInput gdiplusStartupInput;
     GdiplusStartup(&m_gdiplusToken, &gdiplusStartupInput, NULL);
 
-    m_hScintillaModule = LoadLibrary(_T("SciLexer.dll"));
     m_accelerator_res.Init();
     m_chinese_pingyin_res.Init();
 
@@ -680,11 +667,6 @@ HICON CMusicPlayerApp::GetNotifyIncon(int index)
         return hIcon_black;
     else
         return hIcon_color;
-}
-
-bool CMusicPlayerApp::IsScintillaLoaded() const
-{
-    return m_hScintillaModule != NULL;
 }
 
 //void CMusicPlayerApp::StartClassifySongData()

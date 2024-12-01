@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "DllLib.h"
+#include "../bass/bass.h"
 
 typedef DWORD HWMENCODE;	// WMA encoding handle
 

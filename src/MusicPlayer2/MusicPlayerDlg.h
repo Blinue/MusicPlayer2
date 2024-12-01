@@ -3,13 +3,12 @@
 //
 
 #pragma once
-#include"PlayListCtrl.h"
-#include"FindDlg.h"
-#include"OptionsDlg.h"
-#include"PropertyDlg.h"
-#include"ColorConvert.h"
-#include"MiniModeDlg.h"
-#include"LyricEditDlg.h"
+#include "PlayListCtrl.h"
+#include "FindDlg.h"
+#include "OptionsDlg.h"
+#include "PropertyDlg.h"
+#include "ColorConvert.h"
+#include "MiniModeDlg.h"
 #include "LyricDownloadDlg.h"
 #include "LyricBatchDownloadDlg.h"
 #include "SoundEffectDlg.h"
@@ -82,9 +81,7 @@ protected:
     //CButton m_clear_search_button;
     CUIWindow m_ui_static_ctrl{ m_pUI };
 
-#ifndef COMPILE_IN_WIN_XP
     THUMBBUTTON m_thumbButton[3]{};
-#endif
 
     CHotkeyManager m_hot_key;
     CFindDlg m_findDlg;		//查找对话框
@@ -123,7 +120,6 @@ protected:
     CCortanaLyric m_cortana_lyric;		//用于显示Cortana歌词
     CDesktopLyric m_desktop_lyric;		//桌面歌词
 
-    CLyricEditDlg* m_pLyricEdit;		//歌词编辑对话框（非模态对话框）
     CLyricBatchDownloadDlg* m_pLyricBatchDownDlg;	//歌词批量下载对话框（非模态对话框）
     CMediaLibDlg* m_pMediaLibDlg;		//媒体库对话框（非模态对话框）
     CSoundEffectDlg* m_pSoundEffecDlg;		//音效设定对话框（非模态对话框）
@@ -358,7 +354,6 @@ public:
     afx_msg void OnDownloadLyric();
     afx_msg void OnLyricBatchDownload();
     afx_msg void OnDeleteLyric();
-    afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
     afx_msg void OnMouseMove(UINT nFlags, CPoint point);
     afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
     afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);

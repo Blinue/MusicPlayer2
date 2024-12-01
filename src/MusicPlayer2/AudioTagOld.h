@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "AudioCommon.h"
+#include "../bass/bass.h"
 
 //主要通过BASS获取音频标签位置并手动解析标签内容，目前已经基本不再使用，现在获取音频标签使用taglib库，代码在CAudioTag类中。
 class CAudioTagOld

@@ -403,14 +403,10 @@ BOOL CAppearanceSettingDlg::OnInitDialog()
     ////设置“更多颜色”按钮的可用状态
     //GetDlgItem(IDC_SET_PROGRESS_COLOR_BUTTON)->EnableWindow(!m_data.theme_color_follow_system);
     //根据是否跟随系统设置复选按钮的初始状态
-#ifdef COMPILE_IN_WIN_XP
-    m_follow_system_color_check.EnableWindow(FALSE);
-#else
     //if (CWinVersionHelper::IsWindows8OrLater())
     m_follow_system_color_check.SetCheck(m_data.theme_color_follow_system);
     //else
     //	m_follow_system_color_check.EnableWindow(FALSE);		//Win8以下系统禁用此复选按钮
-#endif // !COMPILE_IN_WIN_XP
 
     //
     m_show_album_cover_chk.SetCheck(m_data.show_album_cover);

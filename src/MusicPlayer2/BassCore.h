@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "IPlayerCore.h"
-#include "bass.h"
+#include "../bass/bass.h"
 #include "BASSMidiLibrary.h"
 #include "Time.h"
 #include "BASSEncodeLibrary.h"

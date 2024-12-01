@@ -44,9 +44,6 @@
     <Filter Include="对话框类\FindDlg">
       <UniqueIdentifier>{5d3a37b2-f1d5-4277-b14c-4bbde14e0a33}</UniqueIdentifier>
     </Filter>
-    <Filter Include="对话框类\LyricEditDlg">
-      <UniqueIdentifier>{6b890c8c-5249-48ae-a0a2-3f5d80b3457d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="对话框类\MiniModeDlg">
       <UniqueIdentifier>{35f017b7-f568-485e-8632-e07fa8a0d6a3}</UniqueIdentifier>
     </Filter>
@@ -303,9 +300,6 @@
     <Filter Include="对话框类\PropertyDlg\GetTagOnline">
       <UniqueIdentifier>{82073554-8212-45d0-88a5-574a06218222}</UniqueIdentifier>
     </Filter>
-    <Filter Include="公共的类\ScintillaEditView">
-      <UniqueIdentifier>{43bd891c-070b-43ea-8666-f78300c390b6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="对话框类\SelectItemDlg">
       <UniqueIdentifier>{beb65fcf-7504-452f-9251-416aee0d7410}</UniqueIdentifier>
     </Filter>
@@ -408,6 +402,9 @@
     <Filter Include="资源文件\language">
       <UniqueIdentifier>{743a577c-2f4d-476b-ad54-58d403cc03fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="bass">
+      <UniqueIdentifier>{fd73a788-8fda-4c05-9d34-81e3a5cf3abe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -426,9 +423,6 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="bass.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>公共的类</Filter>
     </ClInclude>
@@ -437,9 +431,6 @@
     </ClInclude>
     <ClInclude Include="LyricDownloadDlg.h">
       <Filter>对话框类\歌词下载对话框</Filter>
-    </ClInclude>
-    <ClInclude Include="LyricEditDlg.h">
-      <Filter>对话框类\LyricEditDlg</Filter>
     </ClInclude>
     <ClInclude Include="MiniModeDlg.h">
       <Filter>对话框类\MiniModeDlg</Filter>
@@ -786,9 +777,6 @@
     <ClInclude Include="PropertyAdvancedDlg.h">
       <Filter>对话框类\PropertyDlg</Filter>
     </ClInclude>
-    <ClInclude Include="ScintillaEditView.h">
-      <Filter>公共的类\ScintillaEditView</Filter>
-    </ClInclude>
     <ClInclude Include="SelectItemDlg.h">
       <Filter>对话框类\SelectItemDlg</Filter>
     </ClInclude>
@@ -930,6 +918,9 @@
     <ClInclude Include="UiSearchBox.h">
       <Filter>对话框类\UiSearchBox</Filter>
     </ClInclude>
+    <ClInclude Include="..\bass\bass.h">
+      <Filter>bass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FindDlg.cpp">
@@ -937,9 +928,6 @@
     </ClCompile>
     <ClCompile Include="LyricDownloadDlg.cpp">
       <Filter>对话框类\歌词下载对话框</Filter>
-    </ClCompile>
-    <ClCompile Include="LyricEditDlg.cpp">
-      <Filter>对话框类\LyricEditDlg</Filter>
     </ClCompile>
     <ClCompile Include="MiniModeDlg.cpp">
       <Filter>对话框类\MiniModeDlg</Filter>
@@ -1270,9 +1258,6 @@
     </ClCompile>
     <ClCompile Include="PropertyAdvancedDlg.cpp">
       <Filter>对话框类\PropertyDlg</Filter>
-    </ClCompile>
-    <ClCompile Include="ScintillaEditView.cpp">
-      <Filter>公共的类\ScintillaEditView</Filter>
     </ClCompile>
     <ClCompile Include="SelectItemDlg.cpp">
       <Filter>对话框类\SelectItemDlg</Filter>
@@ -2044,6 +2029,9 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="language\Simplified_Chinese.ini">
       <Filter>资源文件\language</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\bass\bass.dll">
+      <Filter>bass</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

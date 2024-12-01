@@ -25,10 +25,6 @@ bool CAboutDlg::InitializeControls()
     SetWindowTextW(temp.c_str());
     temp = L"MusicPlayer2，V" APP_VERSION;
 
-#ifdef COMPILE_IN_WIN_XP
-    temp += L" (For WinXP)";
-#endif // COMPILE_FOR_WINXP
-
 #ifdef _M_X64
     temp += L" (x64)";
 #endif

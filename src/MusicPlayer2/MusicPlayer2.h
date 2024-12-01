@@ -71,10 +71,10 @@ public:
 
     wstring m_window_title;         // 窗口的标题
 
-    volatile bool m_lyric_download_dialog_exit{ true };		//用于指示歌词下载对话框已经退出
-    volatile bool m_batch_download_dialog_exit{ true };		//用于指示歌词批量下载对话框已经退出
-    volatile bool m_cover_download_dialog_exit{ true };		//用于指示歌词下载对话框已经退出
-    volatile bool m_format_convert_dialog_exit{ true };		//用于指示格式对话框已经退出
+    std::atomic<bool> m_lyric_download_dialog_exit{ true };		//用于指示歌词下载对话框已经退出
+    std::atomic<bool> m_batch_download_dialog_exit{ true };		//用于指示歌词批量下载对话框已经退出
+    std::atomic<bool> m_cover_download_dialog_exit{ true };		//用于指示歌词下载对话框已经退出
+    std::atomic<bool> m_format_convert_dialog_exit{ true };		//用于指示格式对话框已经退出
     MediaUpdateThreadPara m_media_update_para;
 
     bool m_module_dir_writable{ true };         //指示程序所在目录是否可写
@@ -121,8 +121,6 @@ public:
 
     void AutoSelectNotifyIcon();
     HICON GetNotifyIncon(int index);
-
-    bool IsScintillaLoaded() const;
 
     LastFM m_lastfm;
     void LoadLastFMData();
