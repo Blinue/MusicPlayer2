@@ -84,6 +84,7 @@ BOOL CMusicPlayerApp::InitInstance() {
     LoadGlobalConfig();
 
     m_local_dir = m_module_dir;
+    SetCurrentDirectory(m_local_dir.c_str());
 
     if (m_general_setting_data.portable_mode)
         m_config_dir = m_module_dir;
@@ -184,7 +185,7 @@ BOOL CMusicPlayerApp::InitInstance() {
                     //通过WM_COPYDATA消息向已有进程传递消息
                     COPYDATASTRUCT copy_data;
                     copy_data.dwData = add_files ? COPY_DATA_ADD_FILE : COPY_DATA_OPEN_FILE;
-                    copy_data.cbData = cmd_line.size() * sizeof(wchar_t);
+                    copy_data.cbData = (DWORD)cmd_line.size() * sizeof(wchar_t);
                     copy_data.lpData = (const PVOID)cmd_line.c_str();
                     ::SendMessage(handle, WM_COPYDATA, 0, (LPARAM)&copy_data);
                 }

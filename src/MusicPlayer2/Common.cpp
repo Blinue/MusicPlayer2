@@ -157,8 +157,8 @@ bool CCommon::StringCsvNormalize(CString& str)
 
 void CCommon::StringCopy(char* dest, int size, string source)
 {
-	int source_size = source.size();
-	for (int i{}; i < size && i < source_size; i++)
+	size_t source_size = source.size();
+	for (size_t i = 0; i < size && i < source_size; i++)
 	{
 		dest[i] = source[i];
 	}
@@ -271,7 +271,7 @@ static void _StringSplit(const T& str, wchar_t div_ch, vector<T>& results, bool 
 	size_t last_split_index = -1;
 	while (true)
 	{
-		split_index = str.find(div_ch, split_index + 1);
+		split_index = str.find((typename T::value_type)div_ch, split_index + 1);
 		T split_str = str.substr(last_split_index + 1, split_index - last_split_index - 1);
 		if (trim)
 			CCommon::StringNormalize(split_str);
@@ -429,7 +429,7 @@ wstring CCommon::TranslateToSimplifiedChinese(const wstring& str)
 	wchar_t* out_buff = new wchar_t[size + 1];
 	WORD wLanguageID = MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED);
 	LCID Locale = MAKELCID(wLanguageID, SORT_CHINESE_PRCP);
-	int rtn = LCMapString(Locale, LCMAP_SIMPLIFIED_CHINESE, str.c_str(), -1, out_buff, size * sizeof(wchar_t));
+	int rtn = LCMapString(Locale, LCMAP_SIMPLIFIED_CHINESE, str.c_str(), -1, out_buff, int(size * sizeof(wchar_t)));
 	result.assign(out_buff);
 	delete[] out_buff;
 	return result;
@@ -443,7 +443,7 @@ wstring CCommon::TranslateToTranditionalChinese(const wstring& str)
 	wchar_t* out_buff = new wchar_t[size + 1];
 	WORD wLanguageID = MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED);
 	LCID Locale = MAKELCID(wLanguageID, SORT_CHINESE_PRCP);
-	int rtn = LCMapString(Locale, LCMAP_TRADITIONAL_CHINESE, str.c_str(), -1, out_buff, size * sizeof(wchar_t));
+	int rtn = LCMapString(Locale, LCMAP_TRADITIONAL_CHINESE, str.c_str(), -1, out_buff, int(size * sizeof(wchar_t)));
 	result.assign(out_buff);
 	delete[] out_buff;
 	return result;
@@ -456,7 +456,7 @@ void CCommon::FileNameNormalize(wstring& file_name)
 	int index{ -1 };
 	while (true)
 	{
-		index = file_name.find_first_of(invalid_chars, index + 1);
+		index = (int)file_name.find_first_of(invalid_chars, index + 1);
 		if (index == wstring::npos)
 		{
 			return;
@@ -548,7 +548,7 @@ wstring CCommon::StrToUnicode(const string& str, CodeType code_type, bool auto_u
 			temp.pop_back();
 		temp.push_back('\0');
 		wchar_t* p = (wchar_t*)temp.c_str();
-		convertBE_LE(p, temp.size() >> 1);
+		convertBE_LE(p, (unsigned int)temp.size() >> 1);
 		result = p;
 		result_ready = true;
 	}
@@ -613,7 +613,7 @@ string CCommon::UnicodeToStr(const wstring& wstr, CodeType code_type, bool* char
 		result.push_back(-2);	//在前面加上UTF16BE的BOM
 		result.push_back(-1);
 		wchar_t* p = (wchar_t*)wstr.c_str();
-		convertBE_LE(p, wstr.size());
+		convertBE_LE(p, (unsigned int)wstr.size());
 		wstring temp{ p };
 		result.append((const char*)temp.c_str(), (const char*)temp.c_str() + temp.size() * 2);
 		result.push_back('\0');
@@ -638,7 +638,7 @@ bool CCommon::IsUTF8Bytes(const char* data)
 	int charByteCounter = 1;  //计算当前正分析的字符应还有的字节数
 	unsigned char curByte; //当前分析的字节.
 	bool ascii = true;
-	int length = strlen(data);
+	int length = (int)strlen(data);
 	for (int i = 0; i < length; i++)
 	{
 		curByte = static_cast<unsigned char>(data[i]);
@@ -966,33 +966,33 @@ void CCommon::DisposeCmdLineFiles(const wstring& cmd_line, vector<wstring>& file
 	//先找出字符串中的文件夹路径，从命令行参数传递过来的文件肯定都是同一个文件夹下的
 	if (cmd_line[0] == L'\"')		//如果第一个文件用双引号包含起来
 	{
-		int index1 = cmd_line.find(L'\"', 1);		//查找和第1个双引号匹配的双引号
-		int index2 = cmd_line.rfind(L'\\', index1);		//往前查找反斜杠
+		size_t index1 = cmd_line.find(L'\"', 1);		//查找和第1个双引号匹配的双引号
+		size_t index2 = cmd_line.rfind(L'\\', index1);		//往前查找反斜杠
 		path = cmd_line.substr(1, index2);		//获取文件夹路径（包含最后一个反斜杠）
 		files.push_back(cmd_line.substr(1, index1 - 1));
 	}
 	else		//如果第一个文件没有用双引号包含起来，则说明路径中不包含空格，
 	{
-		int index1 = cmd_line.find(L' ');		//查找和第1空格
-		int index2 = cmd_line.rfind(L'\\', index1);		//往前查找反斜杠
+		size_t index1 = cmd_line.find(L' ');		//查找和第1空格
+		size_t index2 = cmd_line.rfind(L'\\', index1);		//往前查找反斜杠
 		path = cmd_line.substr(0, index2 + 1);		//获取文件夹路径（包含最后一个反斜杠）
 		files.push_back(cmd_line.substr(0, index1));
 	}
-	int path_size = path.size();
+	size_t path_size = path.size();
 	if (path_size < 2) return;
-	int index{};
+	size_t index{};
 	while (true)
 	{
 		index = cmd_line.find(path, index + path_size);		//从第2个开始查找路径出现的位置
 		if (index == string::npos) break;
 		if (index > 0 && cmd_line[index - 1] == L'\"')		//如果路径前面一个字符是双引号
 		{
-			int index1 = cmd_line.find(L'\"', index);
+			size_t index1 = cmd_line.find(L'\"', index);
 			files.push_back(cmd_line.substr(index, index1 - index));
 		}
 		else
 		{
-			int index1 = cmd_line.find(L' ', index);
+			size_t index1 = cmd_line.find(L' ', index);
 			files.push_back(cmd_line.substr(index, index1 - index));
 		}
 	}
@@ -1072,7 +1072,7 @@ bool CCommon::CreateFileShortcut(LPCTSTR lpszLnkFileDir, LPCTSTR lpszFileName, L
 	{
 		//设置工作目录为快捷方式目标所在位置
 		_tstring workDir = pFilePath;
-		int index = workDir.find_last_of(_T("\\/"));
+		size_t index = workDir.find_last_of(_T("\\/"));
 		if (index != workDir.npos)
 			workDir = workDir.substr(0, index);
 		pLink->SetWorkingDirectory(workDir.c_str());
@@ -1112,7 +1112,7 @@ bool CCommon::CreateFileShortcut(LPCTSTR lpszLnkFileDir, LPCTSTR lpszFileName, L
 		//没有指定名称，就从取指定文件的文件名作为快捷方式名称。
 		_tstring fileName = pFilePath;
 
-		int index1, index2;
+		size_t index1, index2;
 		index1 = fileName.find_last_of(_T("\\/"));
 		index2 = fileName.rfind(_T('.'));
 
@@ -1543,7 +1543,7 @@ void CCommon::NormalizeFont(LOGFONT& font)
 		name = name.substr(0, index);
 	}
 	//wcsncpy_s(font.lfFaceName, name.c_str(), 32);
-	WStringCopy(font.lfFaceName, 32, name.c_str(), name.size());
+	WStringCopy(font.lfFaceName, 32, name.c_str(), (int)name.size());
 }
 
 int CCommon::GetMenuBarHeight(HWND hWnd)
@@ -1571,7 +1571,7 @@ int CCommon::IconSizeNormalize(int size)
 
 	const vector<int> standard_size{ 16, 20, 24, 32, 48, 64, 128, 256, 512 };
 	int min_diff = MAXINT;
-	int index = 0;
+	size_t index = 0;
 	for (size_t i = 0; i < standard_size.size(); i++)
 	{
 		int diff = std::abs(size - standard_size[i]);
@@ -1715,7 +1715,7 @@ void CCommon::FileAutoRename(wstring& file_path)
 
 int CCommon::StringCompareInLocalLanguage(const wstring& str1, const wstring& str2, bool no_case)
 {
-	int rtn = CompareStringEx(LOCALE_NAME_USER_DEFAULT, (no_case ? NORM_IGNORECASE : 0) | SORT_DIGITSASNUMBERS, str1.c_str(), str1.size(), str2.c_str(), str2.size(), NULL, NULL, 0);
+	int rtn = CompareStringEx(LOCALE_NAME_USER_DEFAULT, (no_case ? NORM_IGNORECASE : 0) | SORT_DIGITSASNUMBERS, str1.c_str(), (int)str1.size(), str2.c_str(), (int)str2.size(), NULL, NULL, 0);
 
 	if (rtn == CSTR_EQUAL)
 		return 0;
@@ -1821,20 +1821,6 @@ int CCommon::Random(int min, int max)
 	std::uniform_int_distribution<int> dis(min, max - 1);
 	int dis_{ dis(engine) };
 	return dis_;
-}
-
-CString CCommon::GetDesktopBackgroundPath()
-{
-	CString path;
-	CRegKey key;
-	if (key.Open(HKEY_CURRENT_USER, _T("Control Panel\\Desktop\\")) == ERROR_SUCCESS)
-	{
-		TCHAR buff[MAX_PATH]{};
-		ULONG size{ MAX_PATH };
-		key.QueryStringValue(_T("WallPaper"), buff, &size);
-		path = buff;
-	}
-	return path;
 }
 
 POINT CCommon::CalculateWindowMoveOffset(CRect& check_rect, vector<CRect>& screen_rects)

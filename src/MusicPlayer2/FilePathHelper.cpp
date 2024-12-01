@@ -45,7 +45,7 @@ wstring CFilePathHelper::GetFileNameWithoutExtension() const
 
 wstring CFilePathHelper::GetFolderName() const
 {
-	int index, index1;
+	size_t index, index1;
 	index = m_file_path.find_last_of(L"\\/");
 	if (index == wstring::npos || index == 0)
 		return wstring();

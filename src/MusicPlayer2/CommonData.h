@@ -257,11 +257,7 @@ struct ApperanceSettingData
 
     bool button_round_corners{ false };     //按钮是否使用圆角风格
 
-    wstring default_background;     //默认的背景图片
-
     int playlist_width_percent{ 50 };       //主界面播放列表宽度的百分比
-
-    bool use_desktop_background{ false };   //使用桌面壁纸作为背景
 
     bool always_show_statusbar{ false };    //总是显示状态栏
     bool show_fps{ true };              //是否在状态栏显示帧率

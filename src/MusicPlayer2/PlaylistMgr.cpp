@@ -468,7 +468,7 @@ void CPlaylistMgr::IterateItemsWithoutSpecialPlaylist(std::function<void(Playlis
 int CPlaylistMgr::GetPlaylistNum() const
 {
     std::shared_lock<std::shared_mutex> lock(m_shared_mutex);
-    int playlist_num = m_recent_playlists.size() + SPEC_PLAYLIST_NUM;
+    int playlist_num = (int)m_recent_playlists.size() + SPEC_PLAYLIST_NUM;
     if (m_temp_playlist.track_num > 0)
         playlist_num++;
     return playlist_num;
@@ -587,7 +587,7 @@ int CPlaylistMgr::GetCurrentPlaylistIndex() const
             return playlist.path == cur_playlist_path;
         });
         if (iter != m_recent_playlists.end())
-            return SPEC_PLAYLIST_NUM + (iter - m_recent_playlists.begin());
+            return SPEC_PLAYLIST_NUM + int(iter - m_recent_playlists.begin());
         return SPEC_PLAYLIST_NUM;
     }
 }

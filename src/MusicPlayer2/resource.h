@@ -26,7 +26,7 @@
 #define IDD_EQUALIZER_DIALOG            181
 #define IDD_SOUND_EFFECT_DIALOG         183
 #define IDD_REVERB_DIALOG               185
-#define IDB_DEFAULT_COVER               190
+#define IDB_DEFAULT_BACKGROUND          190
 #define IDB_CORTANA_BLACK               191
 #define IDB_CORTANA_WHITE               192
 #define IDR_LYRIC_EDIT_TOOLBAR          193
@@ -558,9 +558,7 @@
 #define IDC_GENRE_CHECK                 1178
 #define IDC_YEAR_CHECK                  1179
 #define IDC_FILE_TYPE_CHECK             1180
-#define IDC_DEFAULT_BACKGROUND_PATH_EDIT 1182
 #define IDC_INSERT_RADIO                1183
-#define IDC_USE_DESKTOP_BACKGROUND_CHECK 1184
 #define IDC_ID3V2_TYPE_COMBO            1185
 #define IDC_GITHUB_RADIO                1186
 #define IDC_GITEE_RADIO                 1187
@@ -617,7 +615,6 @@
 #define IDC_TXT_BG_SETTING_STATIC       1235
 #define IDC_TXT_BG_TRANSPARENCY_STATIC  1236
 #define IDC_TXT_GAUSS_BLUR_RADIUS_STATIC 1237
-#define IDC_TXT_DEFAULT_BG_PATH_EDIT_STATIC 1238
 #define IDC_TXT_COVER_OPT_STATIC        1239
 #define IDC_TXT_EXT_COVER_FILE_NAME_STATIC 1240
 #define IDC_TXT_EXT_COVER_FOLDER_STATIC 1241
@@ -993,7 +990,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        628
+#define _APS_NEXT_RESOURCE_VALUE        629
 #define _APS_NEXT_COMMAND_VALUE         33478
 #define _APS_NEXT_CONTROL_VALUE         1372
 #define _APS_NEXT_SYMED_VALUE           101

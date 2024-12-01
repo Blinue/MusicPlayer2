@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "InternetCommon.h"
 #include "Resource.h"
 #include "MusicPlayer2.h"
@@ -38,15 +38,19 @@ wstring CInternetCommon::URLEncode(const wstring & wstr)
 
 bool CInternetCommon::GetURL(const wstring & str_url, wstring & result, bool custom_ua, bool allow_other_codes)
 {
-    wstring log_info;
-    log_info = L"http get: " + str_url;
-    theApp.WriteLog(log_info, NonCategorizedSettingData::LT_NORMAL);
+	wstring log_info;
+	log_info = L"http get: " + str_url;
+	theApp.WriteLog(log_info, NonCategorizedSettingData::LT_NORMAL);
 
 	bool sucessed{ false };
 	CInternetSession session{};
-    if (custom_ua) {
-        session.SetOption(INTERNET_OPTION_USER_AGENT, (LPVOID)L"MuiscPlayer2" APP_VERSION, wcslen(L"MuiscPlayer2" APP_VERSION) * sizeof(wchar_t));
-    }
+	if (custom_ua) {
+		session.SetOption(
+			INTERNET_OPTION_USER_AGENT,
+			(LPVOID)L"MuiscPlayer2" APP_VERSION,
+			DWORD(wcslen(L"MuiscPlayer2" APP_VERSION) * sizeof(wchar_t))
+		);
+	}
 	CHttpFile* pfile{};
 	try
 	{
@@ -70,9 +74,9 @@ bool CInternetCommon::GetURL(const wstring & str_url, wstring & result, bool cus
 	}
 	catch (CInternetException* e)
 	{
-        wstring log_info = L"http get " + str_url + L"error. Error code: ";
-        log_info += std::to_wstring(e->m_dwError);
-        theApp.WriteLog(log_info, NonCategorizedSettingData::LT_ERROR);
+		wstring log_info = L"http get " + str_url + L"error. Error code: ";
+		log_info += std::to_wstring(e->m_dwError);
+		theApp.WriteLog(log_info, NonCategorizedSettingData::LT_ERROR);
 
 		if (pfile != nullptr)
 		{
@@ -87,21 +91,21 @@ bool CInternetCommon::GetURL(const wstring & str_url, wstring & result, bool cus
 }
 
 int CInternetCommon::HttpPost(const wstring& str_url, wstring& result) {
-    string body;
-    wstring headers;
-    return HttpPost(str_url, result, body, headers);
+	string body;
+	wstring headers;
+	return HttpPost(str_url, result, body, headers);
 }
 
 int CInternetCommon::HttpPost(const wstring& str_url, wstring& result, const wstring& body, wstring& headers, bool custom_ua) {
-    const auto& tmp = CCommon::UnicodeToStr(body, CodeType::UTF8_NO_BOM);
-    return HttpPost(str_url, result, tmp, headers, custom_ua);
+	const auto& tmp = CCommon::UnicodeToStr(body, CodeType::UTF8_NO_BOM);
+	return HttpPost(str_url, result, tmp, headers, custom_ua);
 }
 
 int CInternetCommon::HttpPost(const wstring & str_url, wstring & result, const string& body, wstring& headers, bool custom_ua)
 {
-    wstring log_info;
-    log_info = L"http post: " + str_url;
-    theApp.WriteLog(log_info, NonCategorizedSettingData::LT_NORMAL);
+	wstring log_info;
+	log_info = L"http post: " + str_url;
+	theApp.WriteLog(log_info, NonCategorizedSettingData::LT_NORMAL);
 
 	CInternetSession session;
 	CHttpConnection* pConnection{};
@@ -111,9 +115,13 @@ int CInternetCommon::HttpPost(const wstring & str_url, wstring & result, const s
 	DWORD dwServiceType;
 	INTERNET_PORT nPort;
 
-    if (custom_ua) {
-        session.SetOption(INTERNET_OPTION_USER_AGENT, (LPVOID)L"MuiscPlayer2" APP_VERSION, wcslen(L"MuiscPlayer2" APP_VERSION) * sizeof(wchar_t));
-    }
+	if (custom_ua) {
+		session.SetOption(
+			INTERNET_OPTION_USER_AGENT,
+			(LPVOID)L"MuiscPlayer2" APP_VERSION,
+			DWORD(wcslen(L"MuiscPlayer2" APP_VERSION) * sizeof(wchar_t))
+		);
+	}
 
 	AfxParseURL(str_url.c_str(), dwServiceType, strServer, strObject, nPort);
 
@@ -128,8 +136,9 @@ int CInternetCommon::HttpPost(const wstring & str_url, wstring & result, const s
 		pFile = pConnection->OpenRequest(_T("POST"), strObject,
 			NULL, 1, NULL, NULL,
 			(dwServiceType == AFX_INET_SERVICE_HTTP ? NORMAL_REQUEST : SECURE_REQUEST));
-        
-		pFile->SendRequest(headers.empty() ? NULL : headers.c_str(), headers.size(), body.empty() ? NULL : (LPVOID)body.c_str(), body.size());
+		
+		pFile->SendRequest(headers.empty() ? NULL : headers.c_str(),
+			(DWORD)headers.size(), body.empty() ? NULL : (LPVOID)body.c_str(), (DWORD)body.size());
 
 		CString content;
 		CString data;
@@ -158,9 +167,9 @@ int CInternetCommon::HttpPost(const wstring & str_url, wstring & result, const s
 		//DWORD dwError = GetLastError();
 		//PRINT_LOG("dwError = %d", dwError, 0);
 
-        wstring log_info = L"http post " + str_url + L"error. Error code: ";
-        log_info += std::to_wstring(dwErrorCode);
-        theApp.WriteLog(log_info, NonCategorizedSettingData::LT_ERROR);
+		wstring log_info = L"http post " + str_url + L"error. Error code: ";
+		log_info += std::to_wstring(dwErrorCode);
+		theApp.WriteLog(log_info, NonCategorizedSettingData::LT_ERROR);
 
 		if (ERROR_INTERNET_TIMEOUT == dwErrorCode)
 			return OUTTIME;
@@ -186,7 +195,7 @@ void CInternetCommon::DisposeSearchResult(vector<ItemInfo>& down_list, const wst
 {
 	down_list.clear();
 	ItemInfo item;
-	int index1{}, index2{}, index3{}, index4{};
+	size_t index1{}, index2{}, index3{}, index4{};
 	//while (true)
 	for (int i{}; i < result_count; i++)
 	{
@@ -239,14 +248,14 @@ void CInternetCommon::DisposeSearchResult(vector<ItemInfo>& down_list, const wst
 		index4 = search_result.find(L"\",\"", index3);
 		item.album = search_result.substr(index3 + 7, index4 - index3 - 7);
 
-        //获取时长
-        index2 = search_result.find(L"\"duration\"", index1);
-        if (index2 != string::npos)
-        {
-            index3 = search_result.find(L',', index2);
-            wstring str_duration = search_result.substr(index2 + 11, index3 - index2 - 11);
-            item.duration = _wtoi(str_duration.c_str());
-        }
+		//获取时长
+		index2 = search_result.find(L"\"duration\"", index1);
+		if (index2 != string::npos)
+		{
+			index3 = search_result.find(L',', index2);
+			wstring str_duration = search_result.substr(index2 + 11, index3 - index2 - 11);
+			item.duration = _wtoi(str_duration.c_str());
+		}
 
 		DeleteStrSlash(item.title);
 		DeleteStrSlash(item.artist);
@@ -337,12 +346,12 @@ double CInternetCommon::StringSimilarDegree_LD(const wstring & srcString, const 
 	取右下角，得编辑距离为3。
 	*/
 
-	int n = srcString.size();
-	int m = matchString.size();
+	int n = (int)srcString.size();
+	int m = (int)matchString.size();
 	
-    const int MAX_LENGTH = 256;
-    if (n <= 0 || n > MAX_LENGTH || m <= 0 || m > MAX_LENGTH || std::abs(n - m) > MAX_LENGTH)      //如果要比较的字符串过长，则不计算
-        return 0;
+	const int MAX_LENGTH = 256;
+	if (n <= 0 || n > MAX_LENGTH || m <= 0 || m > MAX_LENGTH || std::abs(n - m) > MAX_LENGTH)      //如果要比较的字符串过长，则不计算
+		return 0;
 
 	//创建表
 	vector<vector<double>> d(n + 1, vector<double>(m + 1));
@@ -391,7 +400,7 @@ int CInternetCommon::SelectMatchedItem(const vector<ItemInfo>& down_list, const 
 	文件名——标题       0.3
 	文件名——艺术家     0.2
 	列表中的排序       0.05
-    时长              0.6
+	时长              0.6
 	*/
 	if (down_list.empty()) return -1;
 	vector<double> weights;		//储存列表中每一项的权值
@@ -420,7 +429,7 @@ int CInternetCommon::SelectMatchedItem(const vector<ItemInfo>& down_list, const 
 		if (weights[i] > max_weight)
 		{
 			max_weight = weights[i];
-			max_index = i;
+			max_index = (int)i;
 		}
 	}
 
@@ -473,13 +482,13 @@ CInternetCommon::ItemInfo CInternetCommon::SearchSongAndGetMatched(const wstring
 	//设置搜索关键字
 	wstring search_result;		//查找歌曲返回的结果
 	wstring keyword;		//查找的关键字
-    if (title.empty() || theApp.m_str_table.LoadText(L"TXT_EMPTY_TITLE") == title)            // 如果没有标题信息，就把文件名设为搜索关键字
+	if (title.empty() || theApp.m_str_table.LoadText(L"TXT_EMPTY_TITLE") == title)            // 如果没有标题信息，就把文件名设为搜索关键字
 	{
 		keyword = file_name;
 		size_t index = keyword.rfind(L'.');		//查找最后一个点
 		keyword = keyword.substr(0, index);		//去掉扩展名
 	}
-    else if (artist.empty() || theApp.m_str_table.LoadText(L"TXT_EMPTY_ARTIST") == artist)    //如果有标题信息但是没有艺术家信息，就把标题设为搜索关键字
+	else if (artist.empty() || theApp.m_str_table.LoadText(L"TXT_EMPTY_ARTIST") == artist)    //如果有标题信息但是没有艺术家信息，就把标题设为搜索关键字
 	{
 		keyword = title;
 	}
@@ -500,8 +509,8 @@ CInternetCommon::ItemInfo CInternetCommon::SearchSongAndGetMatched(const wstring
 			const wstring& info = theApp.m_str_table.LoadText(L"MSG_NETWORK_CONNECTION_FAILED");
 			AfxMessageBox(info.c_str(), NULL, MB_ICONWARNING);
 		}
-        if (result != nullptr)
-            *result = DR_NETWORK_ERROR;
+		if (result != nullptr)
+			*result = DR_NETWORK_ERROR;
 
 		return CInternetCommon::ItemInfo();
 	}
@@ -516,18 +525,18 @@ CInternetCommon::ItemInfo CInternetCommon::SearchSongAndGetMatched(const wstring
 			const wstring& info = theApp.m_str_table.LoadText(L"MSG_NETWORK_CANNOT_FIND_THIS_SONG");
 			AfxMessageBox(info.c_str(), NULL, MB_ICONWARNING);
 		}
-        if (result != nullptr)
-            *result = DR_DOWNLOAD_ERROR;
-        return CInternetCommon::ItemInfo();
+		if (result != nullptr)
+			*result = DR_DOWNLOAD_ERROR;
+		return CInternetCommon::ItemInfo();
 	}
 
 	//计算最佳选择项
 	wstring _title = title;
 	wstring _artist = artist;
 	wstring _album = album;
-    if (theApp.m_str_table.LoadText(L"TXT_EMPTY_TITLE") == title) _title.clear();
-    if (theApp.m_str_table.LoadText(L"TXT_EMPTY_ARTIST") == artist) _artist.clear();
-    if (theApp.m_str_table.LoadText(L"TXT_EMPTY_ALBUM") == album) _album.clear();
+	if (theApp.m_str_table.LoadText(L"TXT_EMPTY_TITLE") == title) _title.clear();
+	if (theApp.m_str_table.LoadText(L"TXT_EMPTY_ARTIST") == artist) _artist.clear();
+	if (theApp.m_str_table.LoadText(L"TXT_EMPTY_ALBUM") == album) _album.clear();
 	if (_title.empty())
 		_title = keyword;
 	int best_matched = CInternetCommon::SelectMatchedItem(down_list, _title, _artist, _album, file_name, true);
@@ -538,13 +547,13 @@ CInternetCommon::ItemInfo CInternetCommon::SearchSongAndGetMatched(const wstring
 			const wstring& info = theApp.m_str_table.LoadText(L"MSG_NETWORK_CANNOT_FIND_THIS_SONG");
 			AfxMessageBox(info.c_str(), NULL, MB_ICONWARNING);
 		}
-        if (result != nullptr)
-            *result = DR_DOWNLOAD_ERROR;
-        return CInternetCommon::ItemInfo();
+		if (result != nullptr)
+			*result = DR_DOWNLOAD_ERROR;
+		return CInternetCommon::ItemInfo();
 	}
 
 	//获返回最佳匹配项
-    if (result != nullptr)
-        *result = DR_SUCCESS;
-    return down_list[best_matched];
+	if (result != nullptr)
+		*result = DR_SUCCESS;
+	return down_list[best_matched];
 }

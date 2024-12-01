@@ -139,8 +139,8 @@ void md5Update(MD5Context* ctx, uint8_t* data, size_t dataLength) {
  * and save the result of the final iteration into digest.
  */
 void md5Finalize(MD5Context* ctx) {
-    uint32_t bitLenHi = (ctx->bytesHashed / 0x20000000) | 0;
-    uint32_t bitLenLo = ctx->bytesHashed << 3;
+    uint32_t bitLenHi = ((uint32_t)ctx->bytesHashed / 0x20000000u) | 0;
+    uint32_t bitLenLo = (uint32_t)ctx->bytesHashed << 3;
     size_t padLength = ((ctx->bytesHashed) % 64 < 56) ? 64 : 128;
     ctx->buffer[ctx->bufferLength] = 0x80;
     for (size_t i = ctx->bufferLength + 1; i < padLength - 8; i++) {

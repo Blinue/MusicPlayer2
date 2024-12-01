@@ -213,14 +213,14 @@ void CListCtrlEx::SetListData(ListData* pListData)
     if (pListData == nullptr)
         return;
     m_pListData = pListData;
-    SetItemCount(pListData->size());
+    SetItemCount((int)pListData->size());
 }
 
 void CListCtrlEx::SetListData(const ListData & list_data)
 {
     m_pListData = nullptr;
     int item_num_before = GetItemCount();
-    int item_num_after = list_data.size();
+    int item_num_after = (int)list_data.size();
     //如果当前列表中项目的数量小于原来的，则直接清空原来列表中所有的项目，重新添加
     if (item_num_after < item_num_before)
     {
@@ -299,7 +299,7 @@ void CListCtrlEx::OnNMCustomdraw(NMHDR *pNMHDR, LRESULT *pResult)
         if (IsWindowEnabled())
         {
             //当选中行又是高亮行时设置颜色
-            if (GetItemState(nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED && nmcd.dwItemSpec == m_highlight_item)
+            if (GetItemState((int)nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED && nmcd.dwItemSpec == m_highlight_item)
             {
                 this_item_select = true;
                 //SetItemState(nmcd.dwItemSpec, 0, LVIS_SELECTED);
@@ -307,7 +307,7 @@ void CListCtrlEx::OnNMCustomdraw(NMHDR *pNMHDR, LRESULT *pResult)
                 lplvdr->clrTextBk = m_theme_color.dark1;
             }
             //设置选中行的颜色
-            else if (GetItemState(nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED)
+            else if (GetItemState((int)nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED)
             {
                 this_item_select = true;
                 //注：当使用虚拟列表时，如果取消下面一行的注释，会导致当列表选中行处理可见状态时，窗口刷新不正常，甚至主窗口OnTimer也无法响应，原因暂时不明
@@ -352,7 +352,7 @@ void CListCtrlEx::OnNMCustomdraw(NMHDR *pNMHDR, LRESULT *pResult)
         break;
     case CDDS_ITEMPOSTPAINT:
         if (this_item_select)
-            SetItemState(nmcd.dwItemSpec, 0xFF, LVIS_SELECTED);
+            SetItemState((int)nmcd.dwItemSpec, 0xFF, LVIS_SELECTED);
         //用背景色填充单元格左侧的空白区域
         if(m_fill_left_space_after_paint)
         {
@@ -365,7 +365,7 @@ void CListCtrlEx::OnNMCustomdraw(NMHDR *pNMHDR, LRESULT *pResult)
         CRect icon_rect = nmcd.rc;
         if (!icon_rect.IsRectEmpty())
         {
-            auto iter = m_icons.find(nmcd.dwItemSpec);
+            auto iter = m_icons.find((int)nmcd.dwItemSpec);
             if (iter != m_icons.end())
             {
                 icon_rect.left += 5;

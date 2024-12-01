@@ -148,9 +148,9 @@ BOOL CMP3EncodeCfgDlg::OnInitDialog()
     {
         const auto& item = m_bitrate_list[i];
         if (item.second == m_encode_para.cbr_bitrate)
-            index_cbr = i;
+            index_cbr = (int)i;
         if (item.second == m_encode_para.abr_bitrate)
-            index_abr = i;
+            index_abr = (int)i;
         m_cbr_rate_combo.AddString(item.first.c_str());
         m_abr_rate_combo.AddString(item.first.c_str());
     }

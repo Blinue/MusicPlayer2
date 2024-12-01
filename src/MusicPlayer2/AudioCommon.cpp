@@ -478,7 +478,7 @@ void CAudioCommon::GetCueTracks(vector<SongInfo>& files, int& update_cnt, bool& 
                 a.channels = song.channels;
             }
         }
-        update_cnt += track_from_text.size();   // cue文件有不同语言版本时这里会反复刷写，这会导致update_cnt大于实际更新数
+        update_cnt += (int)track_from_text.size();   // cue文件有不同语言版本时这里会反复刷写，这会导致update_cnt大于实际更新数
         // 更新track_from_text中的信息到媒体库
         CSongDataManager::GetInstance().SaveCueSongInfo(track_from_text);
     }

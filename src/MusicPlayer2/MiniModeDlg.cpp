@@ -178,11 +178,11 @@ void CMiniModeDlg::Init()
         // 转换到派生类以调用SetIndex/GetUIName
         if (auto ui_mini = std::dynamic_pointer_cast<CMiniModeUserUi>(m_ui_list[i]))
         {
-            ui_mini->SetIndex(menu_list.size());        // 设置界面序号
+            ui_mini->SetIndex((int)menu_list.size());        // 设置界面序号
             wstring str_name = ui_mini->GetUIName();    // 获取界面的名称
             if (str_name.empty())                       // 如果名称为空（没有指定名称），则使用“迷你模式 + 数字”的默认名称
                 str_name = theApp.m_str_table.LoadTextFormat(L"TXT_UI_NAME_MINI_DEFAULT", { i });
-            UINT id = ID_MINIMODE_UI_DEFAULT + i;
+            UINT id = ID_MINIMODE_UI_DEFAULT + (UINT)i;
             menu_list.emplace_back(MenuMgr::MenuItem{ id, IconMgr::IconType::IT_NO_ICON, str_name });
 
             if (ID_MINIMODE_UI_DEFAULT + i >= ID_MINIMODE_UI_MAX)

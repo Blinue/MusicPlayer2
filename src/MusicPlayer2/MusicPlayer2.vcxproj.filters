@@ -2018,6 +2018,15 @@
     <Image Include="res\tree_branch_expanded_d.ico">
       <Filter>资源文件\Icons</Filter>
     </Image>
+    <Image Include="res\default_background.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\default_background.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\default_background.png">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="language\English.ini">

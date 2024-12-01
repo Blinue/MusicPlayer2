@@ -433,8 +433,6 @@ public:
 
     static int Random(int min, int max);        //生成一个随机数，范围是大于或等于min，小于max
 
-    static CString GetDesktopBackgroundPath();  //获取桌面壁纸的路径
-
     //返回使窗口显示在一个监视器内所需移动距离最小的偏移量 (当check_rect在某方向上大于screen_rects时向左或向上对齐)
     static POINT CalculateWindowMoveOffset(CRect& check_rect, vector<CRect>& screen_rects);
 
@@ -466,7 +464,7 @@ inline bool CCommon::StringNormalize(T& str)
 {
     if (str.empty()) return false;
 
-    int size = str.size();	//字符串的长度
+    int size = (int)str.size();	//字符串的长度
     if (size < 0) return false;
     int index1 = 0;		//字符串中第1个不是空格或控制字符的位置
     int index2 = size - 1;	//字符串中最后一个不是空格或控制字符的位置
@@ -550,16 +548,16 @@ inline size_t CCommon::StringNatchWholeWord(const T& str, const T& find_str)
     //T _str{ str }, _find_str{ find_str };
     //StringTransform(str, false);
     //StringTransform(find_str, false);
-    int index{ -1 };
+    size_t index{ T::npos };
     int find_str_front_pos, find_str_back_pos;		//找到的字符串在原字符串中前面和后面一个字符的位置
-    int size = str.size();
-    int find_str_size = find_str.size();
+    size_t size = (int)str.size();
+    size_t find_str_size = find_str.size();
     while (true)
     {
         index = str.find(find_str, index + 1);
         if (index == T::npos) break;
-        find_str_front_pos = index - 1;
-        find_str_back_pos = index + find_str_size;
+        find_str_front_pos = (int)index - 1;
+        find_str_back_pos = int(index + find_str_size);
         if ((find_str_front_pos < 0 || IsDivideChar(str[find_str_front_pos])) && (find_str_back_pos >= size || IsDivideChar(str[find_str_back_pos])))
             return index;
         else

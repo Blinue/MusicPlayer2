@@ -646,14 +646,14 @@ void UiElement::StackElement::Draw()
 	if (show_indicator)
 	{
 		//计算指示器的位置
-		int indicator_width = ui->DPI(12) * childLst.size();
+		int indicator_width = ui->DPI(12) * (int)childLst.size();
 		indicator.rect.top = GetRect().bottom + ui->DPI(2) + ui->DPI(indicator_offset);
 		indicator.rect.bottom = indicator.rect.top + ui->DPI(12);
 		indicator.rect.left = GetRect().left + (GetRect().Width() - indicator_width) / 2;
 		indicator.rect.right = indicator.rect.left + indicator_width;
 		indicator.rect.InflateRect(ui->DPI(2), ui->DPI(2));
 		//绘制指示器
-		ui->DrawStackIndicator(indicator, childLst.size(), cur_index);
+		ui->DrawStackIndicator(indicator, (int)childLst.size(), cur_index);
 	}
 }
 
@@ -1403,7 +1403,7 @@ void UiElement::ListElement::CalculateItemRects()
 	for (size_t i{}; i < item_rects.size(); i++)
 	{
 		//计算每一行的矩形区域
-		int start_y = -playlist_offset + rect.top + i * ItemHeight();
+		int start_y = -playlist_offset + rect.top + (int)i * ItemHeight();
 		CRect rect_item{ rect };
 		rect_item.top = start_y;
 		rect_item.bottom = rect_item.top + ItemHeight();
@@ -1534,7 +1534,7 @@ bool UiElement::ListElement::IsItemMatchKeyWord(int row, const std::wstring& key
 int UiElement::ListElement::GetDisplayRowCount()
 {
 	if (searched)
-		return search_result.size();
+		return (int)search_result.size();
 	else
 		return GetRowCount();
 }
@@ -2188,7 +2188,7 @@ void UiElement::NavigationBar::LButtonUp(CPoint point)
 		{
 			if (item_rects[i].PtInRect(point))
 			{
-				_selected_index = i;
+				_selected_index = (int)i;
 				break;
 			}
 		}
@@ -2209,7 +2209,7 @@ void UiElement::NavigationBar::MouseMove(CPoint point)
 		{
 			if (item_rects[i].PtInRect(point))
 			{
-				_hover_index = i;
+				_hover_index = (int)i;
 				break;
 			}
 		}

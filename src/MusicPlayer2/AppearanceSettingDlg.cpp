@@ -54,8 +54,6 @@ bool CAppearanceSettingDlg::InitializeControls()
     SetDlgItemTextW(IDC_TXT_BG_SETTING_STATIC, temp.c_str());
     temp = theApp.m_str_table.LoadText(L"TXT_OPT_APC_BG_ENABLE");
     SetDlgItemTextW(IDC_ENABLE_BACKGROUND_CHECK, temp.c_str());
-    temp = theApp.m_str_table.LoadText(L"TXT_OPT_APC_BG_USE_DESKTOP");
-    SetDlgItemTextW(IDC_USE_DESKTOP_BACKGROUND_CHECK, temp.c_str());
     temp = theApp.m_str_table.LoadText(L"TXT_OPT_APC_BG_TRANSPARENCY");
     SetDlgItemTextW(IDC_TXT_BG_TRANSPARENCY_STATIC, temp.c_str());
     // IDC_BACKGROUND_TRANSPARENCY_SLIDER
@@ -68,9 +66,6 @@ bool CAppearanceSettingDlg::InitializeControls()
     SetDlgItemTextW(IDC_TXT_GAUSS_BLUR_RADIUS_STATIC, temp.c_str());
     // IDC_GAUSS_BLURE_RADIUS_SLIDER
     // IDC_GAUSS_BLUR_RADIUS_STATIC
-    temp = theApp.m_str_table.LoadText(L"TXT_OPT_APC_BG_DEFAULT_IMAGE");
-    SetDlgItemTextW(IDC_TXT_DEFAULT_BG_PATH_EDIT_STATIC, temp.c_str());
-    // IDC_DEFAULT_BACKGROUND_PATH_EDIT
 
     temp = theApp.m_str_table.LoadText(L"TXT_OPT_APC_COVER_OPT");
     SetDlgItemTextW(IDC_TXT_COVER_OPT_STATIC, temp.c_str());
@@ -187,7 +182,6 @@ void CAppearanceSettingDlg::DoDataExchange(CDataExchange* pDX)
     DDX_Control(pDX, IDC_COMBO1, m_icon_select_combo);
     DDX_Control(pDX, IDC_NOTIFY_ICON_AUTO_ADAPT_CHECK, m_notify_icon_auto_adapt_chk);
     DDX_Control(pDX, IDC_BTN_ROUND_CORNERS_CHECK, m_btn_round_corners_chk);
-    DDX_Control(pDX, IDC_DEFAULT_BACKGROUND_PATH_EDIT, m_default_background_edit);
     DDX_Control(pDX, IDC_DEFAULT_COVER_NAME_EDIT, m_album_cover_name_edit);
     DDX_Control(pDX, IDC_ALBUM_COVER_PATH_EDIT, m_album_cover_path_edit);
 }
@@ -235,9 +229,6 @@ void CAppearanceSettingDlg::SetControlEnable()
     m_back_transparency_slid.EnableWindow(m_data.enable_background);
     m_background_gauss_blur_chk.EnableWindow(m_data.enable_background && m_data.album_cover_as_background);
     m_gauss_blur_radius_sld.EnableWindow(m_data.enable_background && m_data.album_cover_as_background && m_data.background_gauss_blur);
-
-    m_default_background_edit.EnableWindow(m_data.enable_background && !m_data.use_desktop_background);
-    EnableDlgCtrl(IDC_USE_DESKTOP_BACKGROUND_CHECK, m_data.enable_background);
 
     EnableDlgCtrl(IDC_SHOW_NEXT_CHECK, m_data.always_show_statusbar);
     EnableDlgCtrl(IDC_SHOW_FPS_CHECK, m_data.always_show_statusbar);
@@ -345,7 +336,6 @@ BEGIN_MESSAGE_MAP(CAppearanceSettingDlg, CTabDlg)
     ON_BN_CLICKED(IDC_NOTIFY_ICON_AUTO_ADAPT_CHECK, &CAppearanceSettingDlg::OnBnClickedNotifyIconAutoAdaptCheck)
     ON_BN_CLICKED(IDC_BTN_ROUND_CORNERS_CHECK, &CAppearanceSettingDlg::OnBnClickedBtnRoundCornersCheck)
     ON_MESSAGE(WM_EDIT_BROWSE_CHANGED, &CAppearanceSettingDlg::OnEditBrowseChanged)
-    ON_BN_CLICKED(IDC_USE_DESKTOP_BACKGROUND_CHECK, &CAppearanceSettingDlg::OnBnClickedUseDesktopBackgroundCheck)
     ON_BN_CLICKED(IDC_SHOW_NEXT_CHECK, &CAppearanceSettingDlg::OnBnClickedShowNextCheck)
     ON_BN_CLICKED(IDC_SHOW_FPS_CHECK, &CAppearanceSettingDlg::OnBnClickedShowFpsCheck)
     ON_BN_CLICKED(IDC_ALWAYS_SHOW_STATUSBAR_CHECK, &CAppearanceSettingDlg::OnBnClickedAlwaysShowStatusbarCheck)
@@ -444,11 +434,6 @@ BOOL CAppearanceSettingDlg::OnInitDialog()
     m_dark_mode_chk.SetCheck(m_data.dark_mode);
     m_use_inner_image_first_chk.SetCheck(m_data.use_inner_image_first);
     m_low_freq_in_center_chk.SetCheck(m_data.spectrum_low_freq_in_center);
-
-    m_default_background_edit.SetWindowText(m_data.default_background.c_str());
-    wstring img_fliter = FilterHelper::GetImageFileFilter();
-    m_default_background_edit.EnableFileBrowseButton(NULL, img_fliter.c_str());
-    CheckDlgButton(IDC_USE_DESKTOP_BACKGROUND_CHECK, m_data.use_desktop_background);
 
     m_default_cover_hq_chk.SetCheck(m_data.draw_album_high_quality);
 
@@ -797,13 +782,7 @@ void CAppearanceSettingDlg::OnBnClickedBtnRoundCornersCheck()
 afx_msg LRESULT CAppearanceSettingDlg::OnEditBrowseChanged(WPARAM wParam, LPARAM lParam)
 {
     CBrowseEdit* pEdit = (CBrowseEdit*)lParam;
-    if (pEdit == &m_default_background_edit)
-    {
-        CString str;
-        m_default_background_edit.GetWindowText(str);
-        m_data.default_background = str.GetString();
-    }
-    else if (pEdit == &m_album_cover_name_edit)
+    if (pEdit == &m_album_cover_name_edit)
     {
         CString temp;
         m_album_cover_name_edit.GetWindowTextW(temp);
@@ -830,14 +809,6 @@ afx_msg LRESULT CAppearanceSettingDlg::OnEditBrowseChanged(WPARAM wParam, LPARAM
         m_data.album_cover_path = str.GetString();
     }
     return 0;
-}
-
-
-void CAppearanceSettingDlg::OnBnClickedUseDesktopBackgroundCheck()
-{
-    // TODO: 在此添加控件通知处理程序代码
-    m_data.use_desktop_background = (IsDlgButtonChecked(IDC_USE_DESKTOP_BACKGROUND_CHECK) != 0);
-    SetControlEnable();
 }
 
 

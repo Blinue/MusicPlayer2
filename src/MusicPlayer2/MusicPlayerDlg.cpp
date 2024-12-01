@@ -73,7 +73,7 @@ CMusicPlayerDlg::CMusicPlayerDlg(wstring cmdLine, CWnd* pParent /*=NULL*/)
 		});
 	for (const auto& ui : user_ui_list_with_index)
 		m_ui_list.push_back(ui);
-	int index = m_ui_list.size() + 1;
+	int index = (int)m_ui_list.size() + 1;
 	if (!user_ui_list_with_index.empty())
 		index = user_ui_list_with_index.back()->GetUiIndex() + 1;
 	for (const auto& ui : user_ui_list)
@@ -426,8 +426,6 @@ void CMusicPlayerDlg::SaveConfig()
 	ini.WriteBool(L"config", L"notify_icon_auto_adapt", theApp.m_app_setting_data.notify_icon_auto_adapt);
 	ini.WriteBool(L"config", L"button_round_corners", theApp.m_app_setting_data.button_round_corners);
 	ini.WriteInt(L"config", L"playlist_width_percent", theApp.m_app_setting_data.playlist_width_percent);
-	ini.WriteString(L"config", L"default_background", theApp.m_app_setting_data.default_background);
-	ini.WriteBool(L"config", L"use_desktop_background", theApp.m_app_setting_data.use_desktop_background);
 
 	ini.WriteBool(L"config", L"show_fps", theApp.m_app_setting_data.show_fps);
 	ini.WriteBool(L"config", L"show_next_track", theApp.m_app_setting_data.show_next_track);
@@ -628,8 +626,6 @@ void CMusicPlayerDlg::LoadConfig()
 	theApp.m_app_setting_data.notify_icon_auto_adapt = ini.GetBool(L"config", L"notify_icon_auto_adapt", false);
 	theApp.m_app_setting_data.button_round_corners = ini.GetBool(L"config", L"button_round_corners", !CWinVersionHelper::IsWindows8Or8point1() && !CWinVersionHelper::IsWindows10());  //Win8/8.1/10默认使用直角风格，其他默认使用圆角风格
 	theApp.m_app_setting_data.playlist_width_percent = ini.GetInt(L"config", L"playlist_width_percent", 50);
-	theApp.m_app_setting_data.default_background = ini.GetString(L"config", L"default_background", DEFAULT_BACKGROUND_NAME);
-	theApp.m_app_setting_data.use_desktop_background = ini.GetBool(L"config", L"use_desktop_background", false);
 
 	theApp.m_app_setting_data.show_fps = ini.GetBool(L"config", L"show_fps", true);
 	theApp.m_app_setting_data.show_next_track = ini.GetBool(L"config", L"show_next_track", true);
@@ -1207,8 +1203,6 @@ void CMusicPlayerDlg::ApplySettings(const COptionsDlg& optionDlg)
 	//bool timer_interval_changed{ theApp.m_app_setting_data.ui_refresh_interval != optionDlg.m_tab2_dlg.m_data.ui_refresh_interval };
 	bool notify_icon_changed{ theApp.m_app_setting_data.notify_icon_selected != optionDlg.m_tab2_dlg.m_data.notify_icon_selected };
 	bool media_lib_display_item_changed{ theApp.m_media_lib_setting_data.display_item != optionDlg.m_media_lib_dlg.m_data.display_item };
-	bool default_background_changed{ theApp.m_app_setting_data.default_background != optionDlg.m_tab2_dlg.m_data.default_background
-									 || theApp.m_app_setting_data.use_desktop_background != optionDlg.m_tab2_dlg.m_data.use_desktop_background };
 	bool search_box_background_transparent_changed{ theApp.m_lyric_setting_data.cortana_transparent_color != optionDlg.m_tab1_dlg.m_data.cortana_transparent_color };
 	bool float_playlist_follow_main_wnd_changed{ theApp.m_media_lib_setting_data.float_playlist_follow_main_wnd != optionDlg.m_media_lib_dlg.m_data.float_playlist_follow_main_wnd };
 	bool show_window_frame_changed{ theApp.m_app_setting_data.show_window_frame != optionDlg.m_tab2_dlg.m_data.show_window_frame };
@@ -1327,9 +1321,6 @@ void CMusicPlayerDlg::ApplySettings(const COptionsDlg& optionDlg)
 		m_notify_icon.DeleteNotifyIcon();
 		m_notify_icon.AddNotifyIcon();
 	}
-
-	if (default_background_changed)
-		LoadDefaultBackground();
 
 	if (search_box_background_transparent_changed)
 		m_cortana_lyric.ApplySearchBoxTransparentChanged();
@@ -1584,7 +1575,7 @@ void CMusicPlayerDlg::SetMenuState(CMenu* pMenu)
 	pMenu->CheckMenuItem(ID_FLOAT_PLAYLIST, MF_BYCOMMAND | (theApp.m_nc_setting_data.float_playlist ? MF_CHECKED : MF_UNCHECKED));
 
 	int ui_selected = GetUiSelected();
-	pMenu->CheckMenuRadioItem(ID_SWITCH_UI + 1, ID_SWITCH_UI + m_ui_list.size(), ID_SWITCH_UI + 1 + ui_selected, MF_BYCOMMAND | MF_CHECKED);
+	pMenu->CheckMenuRadioItem(ID_SWITCH_UI + 1, ID_SWITCH_UI + (UINT)m_ui_list.size(), ID_SWITCH_UI + 1 + ui_selected, MF_BYCOMMAND | MF_CHECKED);
 
 	// 设置播放列表菜单中排序方式的图标
 	const CBitmap* bitmap_sort_up = theApp.m_menu_mgr.GetMenuBitmap(IconMgr::IconType::IT_Triangle_Up);
@@ -1843,7 +1834,7 @@ void CMusicPlayerDlg::IniPlaylistPopupMenu()
 	//向“添加到播放列表”菜单更新播放列表
 	vector<MenuMgr::MenuItem> menu_list;
 	CPlaylistMgr::Instance().IterateItemsWithoutSpecialPlaylist([&](PlaylistInfo& item) {
-		UINT id = ID_ADD_TO_MY_FAVOURITE + 1 + menu_list.size();
+		UINT id = ID_ADD_TO_MY_FAVOURITE + 1 + (UINT)menu_list.size();
 		menu_list.emplace_back(MenuMgr::MenuItem{ id, IconMgr::IconType::IT_NO_ICON, CFilePathHelper(item.path).GetFileNameWithoutExtension() });
 	}, ADD_TO_PLAYLIST_MAX_SIZE);
 	theApp.m_menu_mgr.UpdateMenu(MenuMgr::AddToPlaylistMenu, menu_list);
@@ -1865,7 +1856,7 @@ void CMusicPlayerDlg::InitUiMenu()
 			str_name += L"\tCtrl+0";
 		if (i == 2)
 			menu_list.emplace_back(MenuMgr::MenuItem{});    // 在外部UI前插入一个分割条
-		UINT id = ID_SWITCH_UI + i + 1;
+		UINT id = ID_SWITCH_UI + (UINT)i + 1;
 		menu_list.emplace_back(MenuMgr::MenuItem{ id, IconMgr::IconType::IT_NO_ICON, str_name });
 	}
 	theApp.m_menu_mgr.UpdateMenu(MenuMgr::MainViewSwitchUiMenu, menu_list);
@@ -1975,20 +1966,35 @@ void CMusicPlayerDlg::UpdateABRepeatToolTip()
 	m_pUI->UpdateMouseToolTip(CPlayerUIBase::BTN_AB_REPEAT, tip_str.c_str());
 }
 
+static IStream* CreateStreamOnResource(LPCTSTR lpName, LPCTSTR lpType) {
+	HRSRC hrsrc = FindResource(NULL, lpName, lpType);
+	if (!hrsrc) {
+		return nullptr;
+	}
+
+	DWORD dwResourceSize = SizeofResource(NULL, hrsrc);
+	HGLOBAL hglbImage = LoadResource(NULL, hrsrc);
+	if (!hglbImage) {
+		return nullptr;
+	}
+
+	LPVOID pvSourceResourceData = LockResource(hglbImage);
+	if (!pvSourceResourceData) {
+		return nullptr;
+	}
+
+	return SHCreateMemStream((BYTE*)pvSourceResourceData, dwResourceSize);
+}
+
 void CMusicPlayerDlg::LoadDefaultBackground()
 {
 	CSingleLock sync(&theApp.m_ui_data.default_background_sync, TRUE);
 	theApp.m_ui_data.default_background.Destroy();
-	CString background_img;
-	if (theApp.m_app_setting_data.use_desktop_background)
-		background_img = CCommon::GetDesktopBackgroundPath();
-	else
-		background_img = theApp.m_app_setting_data.default_background.c_str();
-	theApp.m_ui_data.default_background.Load(background_img);
-	if (theApp.m_ui_data.default_background.IsNull())
-		theApp.m_ui_data.default_background.Load((theApp.m_local_dir + DEFAULT_BACKGROUND_NAME).c_str());
-	if (theApp.m_ui_data.default_background.IsNull())
-		theApp.m_ui_data.default_background.LoadFromResource(AfxGetResourceHandle(), IDB_DEFAULT_COVER);
+
+	if (IStream* pngStream = CreateStreamOnResource(MAKEINTRESOURCE(IDB_DEFAULT_BACKGROUND), L"PNG")) {
+		theApp.m_ui_data.default_background.Load(pngStream);
+		pngStream->Release();
+	}
 }
 
 void CMusicPlayerDlg::SelectUi(int ui_selected)
@@ -4180,14 +4186,14 @@ void CMusicPlayerDlg::OnEqualizer()
 void CMusicPlayerDlg::OnExploreOnline()
 {
 	// TODO: 在此添加命令处理程序代码
-	m_pThread = AfxBeginThread(ViewOnlineThreadFunc, (void*)m_item_selected);
+	m_pThread = AfxBeginThread(ViewOnlineThreadFunc, (void*)(intptr_t)m_item_selected);
 }
 
 UINT CMusicPlayerDlg::ViewOnlineThreadFunc(LPVOID lpParam)
 {
 	CCommon::SetThreadLanguageList(theApp.m_str_table.GetLanguageTag());
 	//此命令用于跳转到歌曲对应的网易云音乐的在线页面
-	int item_selected = (int)lpParam;
+	int item_selected = (int)(intptr_t)lpParam;
 	if (item_selected >= 0 && item_selected < CPlayer::GetInstance().GetSongNum())
 	{
 		SongInfo& song{ CPlayer::GetInstance().GetPlayList()[item_selected] };
@@ -4576,7 +4582,7 @@ afx_msg LRESULT CMusicPlayerDlg::OnMusicStreamOpened(WPARAM wParam, LPARAM lPara
 void CMusicPlayerDlg::OnCurrentExploreOnline()
 {
 	// TODO: 在此添加命令处理程序代码
-	m_pThread = AfxBeginThread(ViewOnlineThreadFunc, (void*)CPlayer::GetInstance().GetIndex());
+	m_pThread = AfxBeginThread(ViewOnlineThreadFunc, (void*)(intptr_t)CPlayer::GetInstance().GetIndex());
 }
 
 
@@ -4783,15 +4789,10 @@ void CMusicPlayerDlg::OnColorizationColorChanged(DWORD dwColorizationColor, BOOL
 		//响应主题颜色改变消息
 		ThemeColorChanged();
 
-		//如果设置了使用桌面背景为背景，则重新载入背景图片
-		if (theApp.m_app_setting_data.use_desktop_background)
-			LoadDefaultBackground();
-
 		//响应此消息后设置定时器，两秒内不再响应此消息
 		m_ignore_color_change = true;
 		SetTimer(INGORE_COLOR_CHANGE_TIMER_ID, 2000, NULL);
 	}
-
 
 	CMainDialogBase::OnColorizationColorChanged(dwColorizationColor, bOpacity);
 }
@@ -4858,7 +4859,7 @@ afx_msg LRESULT CMusicPlayerDlg::OnNotifyicon(WPARAM wParam, LPARAM lParam)
 			m_pFloatPlaylistDlg->ShowWindow(SW_SHOW);
 	}
 
-	m_notify_icon.OnNotifyIcon(lParam, m_miniModeDlg.m_hWnd);
+	m_notify_icon.OnNotifyIcon((UINT)lParam, m_miniModeDlg.m_hWnd);
 
 	if (lParam == WM_LBUTTONUP && m_miniModeDlg.m_hWnd == NULL)
 	{
@@ -5435,17 +5436,17 @@ afx_msg LRESULT CMusicPlayerDlg::OnListItemDragged(WPARAM wParam, LPARAM lParam)
 	//移动后设置当前选中行
 	if (m_pFloatPlaylistDlg->GetSafeHwnd() == NULL)
 	{
-		m_playlist_list.SetCurSel(index, index + drag_items.size() - 1);
+		m_playlist_list.SetCurSel(index, index + (int)drag_items.size() - 1);
 		GetPlaylistItemSelected();
 	}
 	else
 	{
-		m_pFloatPlaylistDlg->GetListCtrl().SetCurSel(index, index + drag_items.size() - 1);
+		m_pFloatPlaylistDlg->GetListCtrl().SetCurSel(index, index + (int)drag_items.size() - 1);
 		m_pFloatPlaylistDlg->GetPlaylistItemSelected();
 	}
 
 	if (m_miniModeDlg.GetSafeHwnd() != NULL)
-		m_miniModeDlg.GetPlaylistCtrl().SetCurSel(index, index + drag_items.size() - 1);
+		m_miniModeDlg.GetPlaylistCtrl().SetCurSel(index, index + (int)drag_items.size() - 1);
 
 	return 0;
 }
@@ -5706,7 +5707,7 @@ afx_msg LRESULT CMusicPlayerDlg::OnInitAddToMenu(WPARAM wParam, LPARAM lParam)
 
 afx_msg LRESULT CMusicPlayerDlg::OnMsgOptionSettings(WPARAM wParam, LPARAM lParam)
 {
-	m_tab_selected = wParam;
+	m_tab_selected = (int)wParam;
 	_OnOptionSettings((CWnd*)lParam);
 	return 0;
 }
@@ -6116,7 +6117,7 @@ void CMusicPlayerDlg::OnRename()
 {
 	// TODO: 在此添加命令处理程序代码
 	int count{}, fail_count{};
-	CRenameDlg dlg(m_items_selected.size());
+	CRenameDlg dlg((int)m_items_selected.size());
 	auto& cur_playlist = CPlayer::GetInstance().GetPlayList();
 	// 单选曲目重命名时建议当前名称
 	if (m_items_selected.size() <= 1 && m_item_selected >= 0 && m_item_selected < static_cast<int>(cur_playlist.size()))
@@ -6502,7 +6503,7 @@ afx_msg LRESULT CMusicPlayerDlg::OnRecentFolderOrPlaylistChanged(WPARAM wParam, 
 			break;
 		if (menu_list.size() >= RECENT_FOLDER_PLAYLIST_MAX_SIZE)
 			break;
-		UINT id = ID_RECENT_FOLDER_PLAYLIST_MENU_START + menu_list.size();
+		UINT id = ID_RECENT_FOLDER_PLAYLIST_MENU_START + (UINT)menu_list.size();
 		IconMgr::IconType icon_type = item.GetIcon();
 		wstring item_name = item.GetName();
 		if (!item_name.empty())

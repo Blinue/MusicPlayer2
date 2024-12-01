@@ -1168,7 +1168,7 @@ bool CMusicPlayerCmdHelper::OnRemoveFromPlaylist(const std::vector<SongInfo>& so
                     return a.IsSameSong(song);
                 });
                 if (iter != CPlayer::GetInstance().GetPlayList().end())
-                    indexs.push_back(iter - CPlayer::GetInstance().GetPlayList().begin());
+                    indexs.push_back(int(iter - CPlayer::GetInstance().GetPlayList().begin()));
             }
             CPlayer::GetInstance().RemoveSongs(indexs);
         }
@@ -1337,7 +1337,7 @@ bool CMusicPlayerCmdHelper::OnAddRemoveFromFavourite(const SongInfo& song)
         const wstring& info = theApp.m_str_table.LoadText(L"MSG_REMOVE_FAVOURITE_WARNING");
         if (GetOwner()->MessageBox(info.c_str(), NULL, MB_ICONINFORMATION | MB_OKCANCEL) == IDOK)
         {
-            int track = iter - playlist.begin();
+            int track = int(iter - playlist.begin());
             bool removed = CPlayer::GetInstance().RemoveSong(track);
             if (removed)
             {

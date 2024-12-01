@@ -163,7 +163,7 @@ void CTagEditDlg::OnBnClickedPreviousButton()
     if (m_file_list.size() <= 1)
         return;
     m_index--;
-    if (m_index < 0) m_index = m_file_list.size() - 1;
+    if (m_index < 0) m_index = (int)m_file_list.size() - 1;
     if (m_index < 0) m_index = 0;
     ShowInfo();
 }

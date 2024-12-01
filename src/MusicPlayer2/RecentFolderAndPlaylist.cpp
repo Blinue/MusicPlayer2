@@ -59,7 +59,7 @@ const std::vector<CRecentFolderAndPlaylist::Item>& CRecentFolderAndPlaylist::Get
 int CRecentFolderAndPlaylist::GetSize() const
 {
     std::shared_lock<std::shared_mutex> lock(m_shared_mutex);
-    return m_list.size();
+    return (int)m_list.size();
 }
 
 bool CRecentFolderAndPlaylist::GetItem(int index, std::function<void(const Item&)> func)

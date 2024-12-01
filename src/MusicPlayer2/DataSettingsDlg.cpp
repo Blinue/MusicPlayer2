@@ -165,7 +165,7 @@ BOOL CDataSettingsDlg::OnInitDialog()
     {
         m_language_combo.AddString(language_list[i].display_name.c_str());
         if (language_list[i].bcp_47 == m_data.language_)
-            language_sel = i + 1;
+            language_sel = (int)i + 1;
     }
     ASSERT(language_sel != 0 || m_data.language_.empty());  // 仅当设置为“跟随系统(空)”时索引才可能为0
     m_language_combo.SetCurSel(language_sel);

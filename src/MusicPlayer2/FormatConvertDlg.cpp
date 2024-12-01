@@ -354,9 +354,9 @@ BOOL CFormatConvertDlg::OnInitDialog()
     {
         m_freq_comb.AddString(m_freq_map[i].first.c_str());
         if (m_freq_map[i].first == m_freq_sel)
-            freq_comb_sel = i;
+            freq_comb_sel = (int)i;
         if (m_freq_map[i].second == 44100)          // 默认值
-            m_freq_comb.SetCurSel(i);
+            m_freq_comb.SetCurSel((int)i);
     }
     if (freq_comb_sel != -1)
         m_freq_comb.SetCurSel(freq_comb_sel);
@@ -410,15 +410,15 @@ void CFormatConvertDlg::ShowFileList()
     {
         CString tmp;
         tmp.Format(_T("%d"), i + 1);
-        m_file_list_ctrl.InsertItem(i, tmp);
+        m_file_list_ctrl.InsertItem((int)i, tmp);
         if (!m_file_list[i].is_cue)
         {
             CFilePathHelper file_path(m_file_list[i].file_path);
-            m_file_list_ctrl.SetItemText(i, 1, file_path.GetFileName().c_str());
+            m_file_list_ctrl.SetItemText((int)i, 1, file_path.GetFileName().c_str());
         }
         else
         {
-            m_file_list_ctrl.SetItemText(i, 1, GetCueDisplayFileName(m_file_list[i].title, m_file_list[i].artist).c_str());
+            m_file_list_ctrl.SetItemText((int)i, 1, GetCueDisplayFileName(m_file_list[i].title, m_file_list[i].artist).c_str());
         }
     }
 }
@@ -585,7 +585,7 @@ UINT CFormatConvertDlg::ThreadFunc(LPVOID lpParam)
         if (theApp.m_format_convert_dialog_exit)
             return 0;
         //编码文件
-        if (EncodeSingleFile(pThis, i))
+        if (EncodeSingleFile(pThis, (int)i))
             ::PostMessage(pThis->GetSafeHwnd(), WM_CONVERT_PROGRESS, i, 101);
     }
     ::PostMessage(pThis->GetSafeHwnd(), WM_CONVERT_COMPLETE, 0, 0);
@@ -634,7 +634,7 @@ void CFormatConvertDlg::OnBnClickedStartConvertButton()
     //先清除“状态”一列的内容
     for (size_t i{}; i < m_file_list.size(); i++)
     {
-        m_file_list_ctrl.SetItemText(i, 2, _T(""));
+        m_file_list_ctrl.SetItemText((int)i, 2, _T(""));
     }
 
     EnableControls(false);
@@ -652,7 +652,7 @@ afx_msg LRESULT CFormatConvertDlg::OnConvertProgress(WPARAM wParam, LPARAM lPara
     wstring status_str;
     int percent = (int)lParam;
     if (percent == 0)
-        m_file_list_ctrl.EnsureVisible(wParam, FALSE);		//转换开始时，确保当前列表项可见
+        m_file_list_ctrl.EnsureVisible((int)wParam, FALSE);		//转换开始时，确保当前列表项可见
     if (percent < 0)
     {
         //显示错误信息
@@ -683,12 +683,12 @@ afx_msg LRESULT CFormatConvertDlg::OnConvertProgress(WPARAM wParam, LPARAM lPara
     {
         status_str = std::to_wstring(static_cast<int>(lParam)) + L'%';
     }
-    m_file_list_ctrl.SetItemText(wParam, 2, status_str.c_str());
+    m_file_list_ctrl.SetItemText((int)wParam, 2, status_str.c_str());
 
     //总体的进度
     int position, length;
-    length = m_file_list.size() * 100;
-    position = wParam * 100 + percent;
+    length = (int)m_file_list.size() * 100;
+    position = (int)wParam * 100 + percent;
     if (theApp.IsTaskbarInteractionEnabled())
         theApp.GetITaskbarList3()->SetProgressValue(this->GetSafeHwnd(), position, length);
     int total_percent = position * 100 / length;

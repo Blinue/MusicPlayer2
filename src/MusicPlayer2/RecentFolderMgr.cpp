@@ -199,7 +199,7 @@ int CRecentFolderMgr::GetCurrentPlaylistIndex() const
             return path_info.path == current_path;
         });
         if (iter != m_recent_path.end())
-            return iter - m_recent_path.begin();
+            return int(iter - m_recent_path.begin());
     }
 
     return -1;

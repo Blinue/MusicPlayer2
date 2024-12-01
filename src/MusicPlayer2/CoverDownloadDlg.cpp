@@ -183,10 +183,10 @@ void CCoverDownloadDlg::ShowDownloadList()
     {
         CString tmp;
         tmp.Format(_T("%d"), i + 1);
-        m_down_list_ctrl.InsertItem(i, tmp);
-        m_down_list_ctrl.SetItemText(i, 1, m_down_list[i].title.c_str());
-        m_down_list_ctrl.SetItemText(i, 2, m_down_list[i].artist.c_str());
-        m_down_list_ctrl.SetItemText(i, 3, m_down_list[i].album.c_str());
+        m_down_list_ctrl.InsertItem((int)i, tmp);
+        m_down_list_ctrl.SetItemText((int)i, 1, m_down_list[i].title.c_str());
+        m_down_list_ctrl.SetItemText((int)i, 2, m_down_list[i].artist.c_str());
+        m_down_list_ctrl.SetItemText((int)i, 3, m_down_list[i].album.c_str());
     }
 }
 
@@ -334,7 +334,7 @@ afx_msg LRESULT CCoverDownloadDlg::OnSearchComplate(WPARAM wParam, LPARAM lParam
             if (m_song.GetSongId() == m_down_list[i].id)
             {
                 id_releated = true;
-                best_matched = i;
+                best_matched = (int)i;
                 break;
             }
         }

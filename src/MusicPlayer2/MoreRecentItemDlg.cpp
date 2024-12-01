@@ -195,7 +195,7 @@ afx_msg LRESULT CMoreRecentItemDlg::OnListboxSelChanged(WPARAM wParam, LPARAM lP
     CListBoxEnhanced* pCtrl = (CListBoxEnhanced*)wParam;
     if (pCtrl == &m_list_ctrl)
     {
-        m_selected_item = lParam;
+        m_selected_item = (int)lParam;
         //选中项是否可以删除
         bool select_valid{ false };
         auto& data_list{ m_searched ? m_search_result : CRecentFolderAndPlaylist::Instance().GetItemList() };

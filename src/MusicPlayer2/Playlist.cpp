@@ -120,7 +120,7 @@ void CPlaylistFile::SavePlaylistToFile(const vector<SongInfo>& song_list, const 
     stream.close();
 
     //更新播放列表的曲目数
-    CPlaylistMgr::Instance().UpdatePlaylistTrackNum(file_path, song_list.size());
+    CPlaylistMgr::Instance().UpdatePlaylistTrackNum(file_path, (int)song_list.size());
 }
 
 const vector<SongInfo>& CPlaylistFile::GetPlaylist() const
@@ -160,7 +160,7 @@ int CPlaylistFile::GetSongIndexInPlaylist(const SongInfo& song)
         return song.IsSameSong(item);
     });
     if (iter != m_playlist.end())
-        return iter - m_playlist.begin();
+        return int(iter - m_playlist.begin());
     else
         return -1;
 }

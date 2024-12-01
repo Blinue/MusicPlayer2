@@ -86,7 +86,6 @@ protected:
     CImage m_preview_system_titlebar;
     CImage m_preview_owner_draw_titlebar;
 
-    CBrowseEdit m_default_background_edit;
     CBrowseEdit m_album_cover_name_edit;
     CBrowseEdit m_album_cover_path_edit;
 
@@ -139,7 +138,6 @@ public:
 protected:
     afx_msg LRESULT OnEditBrowseChanged(WPARAM wParam, LPARAM lParam);
 public:
-    afx_msg void OnBnClickedUseDesktopBackgroundCheck();
     afx_msg void OnBnClickedShowNextCheck();
     afx_msg void OnBnClickedShowFpsCheck();
     afx_msg void OnBnClickedAlwaysShowStatusbarCheck();

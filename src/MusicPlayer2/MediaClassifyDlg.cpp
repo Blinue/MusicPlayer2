@@ -706,7 +706,7 @@ void CMediaClassifyDlg::OnSize(UINT nType, int cx, int cy)
         std::vector<int> width;
         CalculateClassifyListColumeWidth(width);
         for (size_t i{}; i < width.size(); i++)
-            m_classify_list_ctrl.SetColumnWidth(i, width[i]);
+            m_classify_list_ctrl.SetColumnWidth((int)i, width[i]);
     }
 }
 

@@ -59,7 +59,7 @@ void CBassCore::InitCore()
     {
         if (theApp.m_output_devices[i].name == theApp.m_play_setting_data.output_device)
         {
-            theApp.m_play_setting_data.device_selected = i;
+            theApp.m_play_setting_data.device_selected = (int)i;
             break;
         }
     }
@@ -201,7 +201,7 @@ void CBassCore::MidiLyricSync(HSYNC handle, DWORD channel, DWORD data, void * us
         return;
     m_midi_lyric.midi_no_lyric = false;
     BASS_MIDI_MARK mark;
-    m_bass_midi_lib.BASS_MIDI_StreamGetMark(channel, (DWORD)user, data, &mark); // get the lyric/text
+    m_bass_midi_lib.BASS_MIDI_StreamGetMark(channel, (DWORD)(intptr_t)user, data, &mark); // get the lyric/text
     if (mark.text[0] == '@') return; // skip info
     if (mark.text[0] == '\\')
     {

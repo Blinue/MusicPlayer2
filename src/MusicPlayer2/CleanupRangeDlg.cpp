@@ -106,7 +106,7 @@ afx_msg LRESULT CCleanupRangeDlg::OnListboxSelChanged(WPARAM wParam, LPARAM lPar
     CListBoxEnhanced* pCtrl = (CListBoxEnhanced*)wParam;
     if (pCtrl == &m_list_ctrl)
     {
-        int index = lParam;
+        int index = (int)lParam;
         if (index >= 0 && index < m_list_ctrl.GetItemCount())
         {
             bool checked = m_list_ctrl.GetCheck(index);

@@ -481,7 +481,7 @@ void CMediaLibSettingDlg::OnBnClickedCleanDataFileButton()
         }
 
         size_t data_size = CCommon::GetFileSize(theApp.m_song_data_path);	 //清理后数据文件的大小
-        int size_reduced = m_data_size - data_size;		//清理后数据文件减少的字节数
+        int size_reduced = int(m_data_size - data_size);		//清理后数据文件减少的字节数
         if (size_reduced < 0) size_reduced = 0;
         wstring info = theApp.m_str_table.LoadTextFormat(L"MSG_OPT_MEDIA_LIB_DATA_FILE_CLEAR_COMPLETE", { clear_cnt, size_reduced });
         MessageBox(info.c_str(), NULL, MB_ICONINFORMATION);

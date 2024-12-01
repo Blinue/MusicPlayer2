@@ -257,7 +257,7 @@ void CCueFile::DoAnalysis()
             m_result.push_back(song_info);
 
             //查找当前音轨的所有标签
-            int index_next_track = m_file_content_wcs.find(L"TRACK ", index_track + 6);
+            size_t index_next_track = m_file_content_wcs.find(L"TRACK ", index_track + 6);
             FindAllProperty(m_file_content_wcs.substr(index_track, index_next_track - index_track), track_property_map);
         }
         // 如果没有下一个FILE标签则退出
@@ -268,7 +268,7 @@ void CCueFile::DoAnalysis()
     }
 
     //设置曲目总数
-    int total_tracks = m_result.size();
+    int total_tracks = (int)m_result.size();
     for (auto& song_info : m_result)
     {
         song_info.total_tracks = total_tracks;

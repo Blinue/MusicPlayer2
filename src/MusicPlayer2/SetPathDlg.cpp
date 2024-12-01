@@ -40,7 +40,7 @@ void CSetPathDlg::AdjustColumnWidth()
     vector<int> width;
     CalculateColumeWidth(width);
     for (size_t i{}; i < width.size(); i++)
-        m_path_list.SetColumnWidth(i, width[i]);
+        m_path_list.SetColumnWidth((int)i, width[i]);
 }
 
 void CSetPathDlg::RefreshTabData()
@@ -57,7 +57,7 @@ bool CSetPathDlg::SetCurSel(const wstring& folder_path)
         for (size_t i{}; i < m_path_list_info.size(); i++)
         {
             if (m_path_list_info[i].path == folder_path)
-                index = i;
+                index = (int)i;
         }
 
         if (index >= 0)
@@ -75,7 +75,7 @@ bool CSetPathDlg::SelectValid() const
 {
     int index{ m_list_selected };
     if (m_searched && index >= 0 && index < static_cast<int>(m_search_result.size()))
-        index = m_search_result[index];
+        index = (int)m_search_result[index];
     return index >= 0 && index < static_cast<int>(m_path_list_info.size());
 }
 
@@ -117,8 +117,8 @@ void CSetPathDlg::ShowPathList()
     {
         for (size_t i{}; i < m_path_list_info.size(); ++i)
         {
-            m_path_list.InsertItem(i, std::to_wstring(i + 1).c_str());
-            SetListRowData(i, m_path_list_info[i]);
+            m_path_list.InsertItem((int)i, std::to_wstring(i + 1).c_str());
+            SetListRowData((int)i, m_path_list_info[i]);
         }
         m_path_list.SetHightItem(CRecentFolderMgr::Instance().GetCurrentPlaylistIndex());
     }

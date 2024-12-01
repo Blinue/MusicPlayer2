@@ -30,7 +30,7 @@ void CUiMediaLibItemMgr::GetClassifiedMeidaLibItemList(CMediaClassifier::Classif
         {
             ItemInfo info;
             info.name = item.first;
-            info.count = item.second.size();
+            info.count = (int)item.second.size();
             item_list.push_back(info);
         }
     }
@@ -125,7 +125,7 @@ int CUiMediaLibItemMgr::GetCurrentIndex(CMediaClassifier::ClassificationType typ
                 });
                 if (iter != name_list.end())
                 {
-                    int index = iter - name_list.begin();
+                    int index = int(iter - name_list.begin());
                     //设置当前项目的序号
                     m_current_index_map[type] = index;
                     return index;

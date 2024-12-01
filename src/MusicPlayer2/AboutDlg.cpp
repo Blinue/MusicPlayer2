@@ -122,7 +122,7 @@ BOOL CAboutDlg::OnInitDialog()
     m_white_height = rect.top - theApp.DPI(8);
 
     //载入图片
-    m_about_pic.LoadFromResource(AfxGetResourceHandle(), IDB_DEFAULT_COVER);
+    m_about_pic.LoadFromResource(AfxGetResourceHandle(), IDB_DEFAULT_BACKGROUND);
 
     return TRUE;  // return TRUE unless you set the focus to a control
                   // 异常: OCX 属性页应返回 FALSE
