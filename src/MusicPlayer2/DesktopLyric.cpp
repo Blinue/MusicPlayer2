@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "DesktopLyric.h"
 #include "MusicPlayer2.h"
 #include "SongInfoHelper.h"
@@ -92,15 +92,10 @@ void CDesktopLyric::UpdateLyric(Gdiplus::Graphics* pGraphics, Gdiplus::Font* pFo
             }
         ) };
         // TRACE("progress %d\n", progress);
-        static const wstring& empty_lyric = theApp.m_str_table.LoadText(L"UI_LYRIC_EMPTY_LINE_2");
-        if (is_lyric_empty)
-            lyric.text = empty_lyric;
 
         if (theApp.m_lyric_setting_data.desktop_lyric_data.lyric_double_line)
         {
             CLyrics::Lyric next_lyric{ now_lyrics.GetLyric(time, true, ignore_blank, karaoke) };
-            if (next_lyric.text.empty())
-                next_lyric.text = empty_lyric;
             SetNextLyric(next_lyric.text.c_str());
         }
 

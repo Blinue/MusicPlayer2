@@ -1,4 +1,4 @@
-﻿// LyricsWindow.cpp : 实现文件
+// LyricsWindow.cpp : 实现文件
 //
 
 #include "stdafx.h"
@@ -37,7 +37,7 @@ CLyricsWindow::CLyricsWindow()
 	//SetLyricsFont(L"微软雅黑", 40, Gdiplus::FontStyle::FontStyleRegular);
 	//SetLyricsColor(Gdiplus::Color::Red,Gdiplus::Color(255,172,0),LyricsGradientMode_Three);
 	//SetLyricsBorder(Gdiplus::Color::Black,1);
-	SetLyricsShadow(Gdiplus::Color(150,255,255,255),1);
+	SetLyricsShadow(Gdiplus::Color(150,0,0,0),1);
 	//SetHighlightColor(Gdiplus::Color(255,100,26),Gdiplus::Color(255,255,0),LyricsGradientMode_Three);
 	//SetHighlightBorder(Gdiplus::Color::Black,1);
 
